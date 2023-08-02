@@ -4,7 +4,7 @@ import furhatos.nlu.EnumEntity
 import furhatos.nlu.ListEntity
 import furhatos.util.Language
 
-class ListofGenres : ListEntity<Genres>()
+class ListOfGenres : ListEntity<Genres>()
 
 class Genres : EnumEntity(speechRecPhrases = true) {
     override fun getEnum(lang: Language): List<String> {
