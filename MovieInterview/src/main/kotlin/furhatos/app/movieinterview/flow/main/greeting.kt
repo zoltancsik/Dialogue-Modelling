@@ -1,6 +1,6 @@
 package furhatos.app.movieinterview.flow.main
 
-import furhatos.app.movieinterview.flow.Parent
+import furhatos.app.movieinterview.flow.*
 import furhatos.flow.kotlin.*
 
 val StartInteraction: State = state(Parent) {
@@ -25,7 +25,12 @@ val StartInteraction: State = state(Parent) {
         val number = it.text.toIntOrNull()
         if (number != null) {
             val moviesYear = number*12
-            furhat.say("That is about $moviesYear movies a year")
+            furhat.say {
+                +"That is about $moviesYear movies a year."
+                +"Since I have Netflix I probably watch around 2 movies a week. "
+                +delay(2000)
+            }
+            goto(AskMovieState)
         }
         else {
             reentry()
