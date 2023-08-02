@@ -10,7 +10,8 @@ val Parent: State = state {
     }
 
     onUserLeave(instant = true) {
-           goto(Idle)
+            furhat.stopSpeaking()
+            goto(Idle)
     }
 
 }
