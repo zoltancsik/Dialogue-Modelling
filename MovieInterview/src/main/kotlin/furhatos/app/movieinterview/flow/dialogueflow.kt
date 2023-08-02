@@ -1,5 +1,6 @@
 package furhatos.app.movieinterview.flow
 
+import furhatos.app.movieinterview.flow.main.*
 import furhatos.app.movieinterview.setting.recommendsMovie
 import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
@@ -55,10 +56,30 @@ val WhyRecommendMovie: State = state(Parent) {
             furhat.ask("Why would you not recommend it?")
     }
     onResponse{
-            furhat.say("It doesn't matter what you say")
-            furhat.say("We go to GenreState now.")
+        goto(AskGenreState)
     }
     onNoResponse {
         furhat.ask("Would you recommend this movie?")
+    }
+}
+
+val AskGenreState: State = state(Parent) {
+    onEntry {
+        furhat.say {
+            +"I'll keep that in mind, if I ever get the chance to watch it."
+            +delay(2000)
+        }
+        furhat.ask("If you had to go for just one: What would be your favourite movie genre?")
+    }
+    onResponse<GenreIntent>{
+        furhat.say("So you like ${it.intent.genre}")
+    }
+    onNoResponse {
+        furhat.say{
+            +"I am familiar with the following genres:"
+            + delay(200)
+            + Genres().optionsToText()
+        }
+        furhat.ask("What would be your favourite genre?")
     }
 }

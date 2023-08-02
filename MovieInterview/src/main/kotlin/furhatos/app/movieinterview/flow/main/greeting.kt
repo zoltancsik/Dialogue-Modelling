@@ -40,5 +40,4 @@ val StartInteraction: State = state(Parent) {
     onNoResponse {
         furhat.ask("Could you give me a number on how many movies you watch per month?")
     }
-
 }
