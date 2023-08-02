@@ -1,7 +1,7 @@
 package furhatos.app.movieinterview.flow
 
 import furhatos.app.movieinterview.flow.main.*
-import furhatos.app.movieinterview.setting.recommendsMovie
+import furhatos.app.movieinterview.setting.*
 import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
@@ -71,19 +71,34 @@ val AskGenreState: State = state(Parent) {
         }
         furhat.ask("If you had to go for just one: What would be your favourite movie genre?")
     }
+
     // Since we only allow GenreIntent as an answer, this secures that getMoviesByGenre will have a return value
     onResponse<GenreIntent>{
         val favGenre = it.intent.genre.toString()
-        val chosenFilm = getMovieByGenre(favGenre)
-        furhat.say("Oh, like $chosenFilm?")
-        furhat.ask("Have you seen it?")
+        filmfromGenre = getMovieByGenre(favGenre)
+        furhat.say("Oh, like $filmfromGenre?")
+        goto(SeenMovieState)
     }
+
     onNoResponse {
         furhat.say{
             +"I am familiar with the following genres:"
             + delay(200)
+            + Genres().optionsToText()
         }
         furhat.ask("What would be your favourite genre?")
+    }
+}
+
+val SeenMovieState: State = state(Parent) {
+    onEntry {
+        furhat.ask("Have you seen $filmfromGenre?")
+    }
+    onResponse<Yes>{
+        furhat.say("Great")
+    }
+    onNoResponse {
+        furhat.ask("Have you seen $filmfromGenre?")
     }
 }
 
