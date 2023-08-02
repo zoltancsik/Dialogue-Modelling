@@ -110,7 +110,7 @@ val SeenMovieState: State = state(Parent) {
             +"i watched it in the cinema with friends when it came out."
             +delay(200)
         }
-        furhat.ask("Where did you watch it for the first time?")
+        goto(WhereYouWatched)
     }
 
     onResponse<No>{
@@ -130,4 +130,30 @@ val SeenMovieState: State = state(Parent) {
     }
 }
 
+val WhereYouWatched: State = state(Parent) {
+    onEntry {
+        furhat.ask("Do you remember where you watched the movie?")
+    }
+    onResponse {
+        goto(MainActorState)
+    }
+}
 
+val MainActorState: State = state(Parent) {
+    onEntry {
+        furhat.ask("Do you remember who the main actors were?")
+    }
+
+    onResponse<Yes> {
+        furhat.say("Okay")
+    }
+
+    onResponse<No> {
+        val movie = filmfromGenre.toString()
+        val actor = getactorbyMovie(movie)
+        furhat.say("$actor played the main character and gave an amazing performance")
+    }
+    onNoResponse {
+        furhat.ask("Do you remember who the main actors in $filmfromGenre were?")
+    }
+}
