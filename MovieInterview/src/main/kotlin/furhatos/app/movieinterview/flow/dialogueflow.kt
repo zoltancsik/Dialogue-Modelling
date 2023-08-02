@@ -71,15 +71,19 @@ val AskGenreState: State = state(Parent) {
         }
         furhat.ask("If you had to go for just one: What would be your favourite movie genre?")
     }
+    // Since we only allow GenreIntent as an answer, this secures that getMoviesByGenre will have a return value
     onResponse<GenreIntent>{
-        furhat.say("So you like ${it.intent.genre}")
+        val favGenre = it.intent.genre.toString()
+        furhat.say("Oh, like ${getMoviesByGenre(favGenre)}?")
+        furhat.ask("Have you seen that movie?")
     }
     onNoResponse {
         furhat.say{
             +"I am familiar with the following genres:"
             + delay(200)
-            + Genres().optionsToText()
         }
         furhat.ask("What would be your favourite genre?")
     }
 }
+
+
