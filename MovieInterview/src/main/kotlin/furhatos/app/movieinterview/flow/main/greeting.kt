@@ -1,25 +1,39 @@
 package furhatos.app.movieinterview.flow.main
 
 import furhatos.app.movieinterview.flow.Parent
-import furhatos.flow.kotlin.State
-import furhatos.flow.kotlin.furhat
-import furhatos.flow.kotlin.onResponse
-import furhatos.flow.kotlin.state
-import furhatos.nlu.common.No
-import furhatos.nlu.common.Yes
+import furhatos.flow.kotlin.*
 
 val StartInteraction: State = state(Parent) {
     onEntry {
-        furhat.ask("Should I say Hello World?")
+        furhat.say {
+            +"Hello! I would like to have a short interview with you."
+            +"I will just ask a couple of questions about movies and feel free to say the first thing which comes to mind."
+            +delay(2000)
+            +"Let’s start with a light question."
+            +delay(2000)
+        }
+        furhat.ask("How many movies do you watch per month on average?")
     }
 
-    onResponse<Yes> {
-        furhat.say("Hello World! ")
+    onReentry {
+        // With this we will end up in an endless loop of furhat not understanding the response
+        // Maybe implement a counter that stops the dialogue after 3 reentries?
+        furhat.ask("I'm not sure I understood that, could you repeat the number?")
     }
 
-    onResponse<No> {
-        furhat.say("Ok.")
+    onResponse {
+        val number = it.text.toIntOrNull()
+        if (number != null) {
+            val moviesYear = number*12
+            furhat.say("That is about $moviesYear movies a year")
+        }
+        else {
+            reentry()
+        }
+    }
+
+    onNoResponse {
+        furhat.ask("Could you give me a number on how many movies you watch per month?")
     }
 
 }
-
