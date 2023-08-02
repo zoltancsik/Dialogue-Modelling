@@ -1,7 +1,7 @@
 package furhatos.app.movieinterview.flow
 
 import furhatos.app.movieinterview.flow.main.Idle
-import furhatos.app.movieinterview.flow.main.Greeting
+import furhatos.app.movieinterview.flow.main.StartInteraction
 import furhatos.app.movieinterview.setting.DISTANCE_TO_ENGAGE
 import furhatos.app.movieinterview.setting.MAX_NUMBER_OF_USERS
 import furhatos.flow.kotlin.State
@@ -19,7 +19,7 @@ val Init: State = state {
         when {
             users.hasAny() -> {
                 furhat.attend(users.random)
-                goto(Greeting)
+                goto(StartInteraction)
             }
             else -> goto(Idle)
         }
