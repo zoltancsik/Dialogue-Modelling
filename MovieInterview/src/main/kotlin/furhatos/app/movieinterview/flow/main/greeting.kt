@@ -8,7 +8,7 @@ import furhatos.flow.kotlin.state
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 
-val Greeting: State = state(Parent) {
+val StartInteraction: State = state(Parent) {
     onEntry {
         furhat.ask("Should I say Hello World?")
     }
