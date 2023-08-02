@@ -71,11 +71,15 @@ val AskGenreState: State = state(Parent) {
         }
         furhat.ask("If you had to go for just one: What would be your favourite movie genre?")
     }
+    onReentry {
+        furhat.ask("What is your favourite genre?")
+    }
 
     // Since we only allow GenreIntent as an answer, this secures that getMoviesByGenre will have a return value
     onResponse<GenreIntent>{
-        val favGenre = it.intent.genre.toString()
-        filmfromGenre = getMovieByGenre(favGenre)
+        favouriteGenre = it.intent.genre.toString()
+        filmfromGenre = getMovieByGenre(favouriteGenre)
+
         furhat.say("Oh, like $filmfromGenre?")
         goto(SeenMovieState)
     }
@@ -88,14 +92,38 @@ val AskGenreState: State = state(Parent) {
         }
         furhat.ask("What would be your favourite genre?")
     }
+
+    onResponseFailed{
+        reentry()
+    }
 }
 
 val SeenMovieState: State = state(Parent) {
     onEntry {
         furhat.ask("Have you seen $filmfromGenre?")
     }
+
     onResponse<Yes>{
-        furhat.say("Great")
+        furhat.say{
+            +"I think..."
+            +delay(200)
+            +"i watched it in the cinema with friends when it came out."
+            +delay(200)
+        }
+        furhat.ask("Where did you watch it for the first time?")
+    }
+
+    onResponse<No>{
+        val movieName = filmfromGenre.toString()
+        val plot = getplotbyMovie(movieName)
+        furhat.say{
+            +"It's a movie about $plot" // gets a specific description from intents
+            +"I enjoyed watching it."
+            +"It certainly is a recommendation from me."
+            +delay(200)
+        }
+        filmfromGenre = getMovieByGenre(favouriteGenre)
+        furhat.ask("How about $filmfromGenre? Have you seen it?")
     }
     onNoResponse {
         furhat.ask("Have you seen $filmfromGenre?")

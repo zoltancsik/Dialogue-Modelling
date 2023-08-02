@@ -31,3 +31,12 @@ fun getMovieByGenre(genre: String): String {
     val moviesList = moviesString.split(", ")
     return moviesList[Random.nextInt(moviesList.size)]
 }
+
+fun getplotbyMovie(movie: String): String {
+    val moviesByGenre = mapOf(
+        "John Wick" to "A guy avenging the death of his beloved dog.",
+        "The Matrix" to "Some sci-fi stuff that I never really understood.",
+        "Die hard" to "A random guy just always killing everyone."
+    )
+    return moviesByGenre[movie] ?: "I don't really know the plot of that movie either. It was a long time ago"
+}
