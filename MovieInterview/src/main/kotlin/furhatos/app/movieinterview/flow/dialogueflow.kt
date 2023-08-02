@@ -74,8 +74,9 @@ val AskGenreState: State = state(Parent) {
     // Since we only allow GenreIntent as an answer, this secures that getMoviesByGenre will have a return value
     onResponse<GenreIntent>{
         val favGenre = it.intent.genre.toString()
-        furhat.say("Oh, like ${getMoviesByGenre(favGenre)}?")
-        furhat.ask("Have you seen that movie?")
+        val chosenFilm = getMovieByGenre(favGenre)
+        furhat.say("Oh, like $chosenFilm?")
+        furhat.ask("Have you seen it?")
     }
     onNoResponse {
         furhat.say{

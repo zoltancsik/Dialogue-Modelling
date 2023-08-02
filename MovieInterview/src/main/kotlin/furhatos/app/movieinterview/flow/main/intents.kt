@@ -12,7 +12,7 @@ class GenreIntent(var genre : Genres? = null) : Intent() {
     }
 }
 
-fun getMoviesByGenre(genre: String): String {
+fun getMovieByGenre(genre: String): String {
     val moviesByGenre = mapOf(
         "action" to "Die hard, John Wick, The Matrix",
         "adventure" to "Indiana Jones, Avatar, Pirates of the Caribbean",
