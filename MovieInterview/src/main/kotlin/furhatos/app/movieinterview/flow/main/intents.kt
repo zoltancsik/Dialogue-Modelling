@@ -40,3 +40,12 @@ fun getplotbyMovie(movie: String): String {
     )
     return moviesByGenre[movie] ?: "I don't really know the plot of that movie either. It was a long time ago"
 }
+
+fun getactorbyMovie(movie: String): String {
+    val moviesByGenre = mapOf(
+        "John Wick" to "Keanu Reeves",
+        "The Matrix" to "Keanu Reeves",
+        "Die hard" to "Bruce Willis."
+    )
+    return moviesByGenre[movie] ?: "I don't really remember either"
+}
