@@ -5,7 +5,7 @@ import furhatos.flow.kotlin.*
 
 val StartInteraction: State = state(Parent) {
     onEntry {
-        goto(AskGenreState)
+        goto(AskGenreState) // skip here to a certain state
         furhat.say {
             +"Hello! I would like to have a short interview with you."
             +"I will just ask a couple of questions about movies and feel free to say the first thing which comes to mind."
