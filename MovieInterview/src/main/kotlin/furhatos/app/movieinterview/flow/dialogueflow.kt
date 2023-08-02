@@ -145,15 +145,115 @@ val MainActorState: State = state(Parent) {
     }
 
     onResponse<Yes> {
-        furhat.say("Okay")
+        furhat.say("Yeah, they were amazing")
+        goto(WatchitAgainState)
     }
 
     onResponse<No> {
         val movie = filmfromGenre.toString()
         val actor = getactorbyMovie(movie)
         furhat.say("$actor played the main character and gave an amazing performance")
+        goto(WatchitAgainState)
     }
     onNoResponse {
         furhat.ask("Do you remember who the main actors in $filmfromGenre were?")
     }
 }
+
+val WatchitAgainState: State = state(Parent) {
+    onEntry {
+        furhat.ask("Would you watch it again?")
+    }
+
+    onResponse<Yes> {
+        furhat.say{
+            +"I"
+            +delay(300)
+            +"think I would too."
+            +"I have only seen it once so far"
+        }
+        goto(RecommendMeSomething)
+    }
+
+    onResponse<No> {
+        furhat.say {
+            +"Me neither"
+            +delay(200)
+            +"Because I have seen it three times by now"
+        }
+        goto(RecommendMeSomething)
+    }
+    onNoResponse {
+        furhat.ask("Would you watch $filmfromGenre again?")
+    }
+}
+
+val RecommendMeSomething: State = state(Parent) {
+    onEntry {
+        furhat.ask("Do you have a movie recommendation for me?")
+    }
+
+    onResponse<Yes> {
+        furhat.ask("Which one?")
+    }
+
+    onResponse{
+        goto(RecommendationState)
+    }
+    onNoResponse {
+        furhat.ask("Do you have a movie recommendtaion for me?")
+    }
+}
+
+val RecommendationState: State = state(Parent){
+    onEntry{
+        furhat.ask{
+            +"I'm not sure I've seen it"
+            +delay(200)
+            +"What is the plot of the movie?"
+        }
+    }
+    onResponse {
+        goto(GiveMeRecommendation)
+    }
+    onNoResponse {
+        furhat.ask("What is the plot of the movie?")
+    }
+}
+
+val GiveMeRecommendation: State = state(Parent){
+    onEntry {
+        furhat.ask("And what did you like about it?")
+    }
+    onResponse{
+        furhat.say{
+            +"Interesting."
+            +delay(200)
+            +"Thanks for this recommendation."
+            +delay(200)
+            +"Now to the final question."
+            +"What are your absolute favourite movies?"
+        }
+        goto(LastQuestion)
+    }
+}
+
+val LastQuestion: State = state(Parent){
+    onEntry {
+        furhat.ask("If you had to choose a couple you have to watch for the rest of your life?")
+    }
+    onResponse{
+        goto(EndInterAction)
+    }
+    onNoResponse {
+        furhat.ask("What did you particularly like about that movie")
+    }
+}
+
+val EndInterAction: State = state(Parent) {
+    onEntry {
+        furhat.say("Thank you so much for taking the time")
+        goto(Idle)
+    }
+}
+
