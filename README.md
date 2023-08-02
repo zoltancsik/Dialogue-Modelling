@@ -5,7 +5,7 @@
 - User Leaves: Furhat inmediately stops talking + goes ti idle state
 - User finished dialogue: Furhat goes into Idle state.
 
-Below is an example transcript of the current dialogue flow (partial)
+### Below is an example transcript of the current dialogue flow (partial)
 
 **Furhat**
 - Hello! I would like to have a short interview with you.
