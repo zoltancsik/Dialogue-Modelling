@@ -69,7 +69,8 @@ val AskGenreState: State = state(Parent) {
             +"I'll keep that in mind, if I ever get the chance to watch it."
             +delay(2000)
         }
-        furhat.ask("If you had to go for just one: What would be your favourite movie genre?")
+        furhat.say("If you had to go for just one: What would be your favourite movie genre?")
+        furhat.ask("Please say action because the other options are not implemented yet")
     }
     onReentry {
         furhat.ask("What is your favourite genre?")

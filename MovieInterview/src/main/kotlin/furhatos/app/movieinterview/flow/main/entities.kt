@@ -34,9 +34,15 @@ fun getMovieByGenre(genre: String): String {
 
 fun getplotbyMovie(movie: String): String {
     val moviesByGenre = mapOf(
-        "John Wick" to "A guy avenging the death of his beloved dog.",
+        "John Wick" to "a guy avenging the death of his beloved dog.",
         "The Matrix" to "Some sci-fi stuff that I never really understood.",
-        "Die hard" to "A random guy just always killing everyone."
+        "Die hard" to "a random guy just always killing everyone.",
+        "Indiana Jones" to "a professor hunting treasures",
+        "Avatar" to "a war on an alien planet",
+        "Pirates of the Caribbean" to "a pirate stealing stuff",
+        "Toy Story" to "toys coming alive",
+        "Shrek" to "an ogre saving the world",
+        "Kung-Fu Panda" to "A panda that does kung-fu stuff"
     )
     return moviesByGenre[movie] ?: "I don't really know the plot of that movie either. It was a long time ago"
 }
