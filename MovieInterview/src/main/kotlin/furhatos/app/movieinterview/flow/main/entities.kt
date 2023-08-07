@@ -55,5 +55,45 @@ fun getactorbyMovie(movie: String): String {
     )
     return moviesByGenre[movie] ?: "I don't really remember either"
 }
+fun extractFirstNumber(input: String): Int? {
+    /* This function handles two different types of inputs:
+        - Sometimes, through FurHats NLU, responses that include numbers realize these differently.
+        - If they are in a longer sentence: written-out version, i.e.: seven,eight etc..
+        - If they are standalone numbers, they are realized as digits.
+        - Solution: Pick up first number in the input string, whether it is written out or a digit,
+        - Ignore every other number in the input
+    */
+    val digitMatch = "\\d+".toRegex().find(input)
 
+    // Try to find the first occurrence of a written-out number
+    val wordNumberPatterns = listOf("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten")
+    val wordMatch = wordNumberPatterns.asSequence().map { it to "\\b$it\\b".toRegex().find(input) }.firstOrNull { it.second != null }
 
+    // If neither form is found, return (will lead to reEntry() )
+    if (digitMatch == null && wordMatch == null) return null
+
+    // If only one form is found, return it
+    if (digitMatch == null) return wordToNumber(wordMatch!!.first)
+    if (wordMatch == null) return digitMatch.value.toInt()
+
+    // If both forms are found, return the one that occurs first
+    return if (digitMatch.range.first < wordMatch.second!!.range.first) digitMatch.value.toInt() else wordToNumber(wordMatch.first)
+}
+
+// Convert written-out numbers to their integer representation
+fun wordToNumber(word: String): Int? {
+    return when (word) {
+        "zero" -> 0
+        "one" -> 1
+        "two" -> 2
+        "three" -> 3
+        "four" -> 4
+        "five" -> 5
+        "six" -> 6
+        "seven" -> 7
+        "eight" -> 8
+        "nine" -> 9
+        "ten" -> 10
+        else -> null
+    }
+}
