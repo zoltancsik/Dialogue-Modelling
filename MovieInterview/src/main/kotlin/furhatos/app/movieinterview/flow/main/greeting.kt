@@ -22,17 +22,18 @@ val StartInteraction: State = state(Parent) {
     }
 
     onResponse {
-        val number = it.text.toIntOrNull()
+        val responseText = it.text.trim()
+        val number = extractFirstNumber(responseText)
+
         if (number != null) {
-            val moviesYear = number*12
+            val moviesYear = number * 12
             furhat.say {
                 +"That is about $moviesYear movies a year."
-                +"Since I have Netflix I probably watch around 2 movies a week. "
+                +"Since I have Netflix I probably watch around 4 movies a month. "
                 +delay(2000)
             }
             goto(AskMovieState)
-        }
-        else {
+        } else {
             reentry()
         }
     }
