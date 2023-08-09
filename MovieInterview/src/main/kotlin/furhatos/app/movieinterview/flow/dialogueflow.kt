@@ -3,50 +3,49 @@ package furhatos.app.movieinterview.flow
 import furhatos.app.movieinterview.flow.main.*
 import furhatos.app.movieinterview.setting.*
 import furhatos.flow.kotlin.*
+import furhatos.nlu.common.DontKnow
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 
-val StartInterview: State = state(Parent){
+val LastMovieWatched: State = state(Parent) {
     onEntry {
-        furhat.say {
-            +"Thank you for joining me and taking the time for this interview."
-            +"It won't take too long, don't worry."
-            +"In the first part of the Interview, I will ask a couple of questions about cinema."
-            +"In the second part we will focus a bit more on your personal habits and preferences."
-            +delay(1000)
-            +"Let’s start with a light question."
-            +delay(2000)
+        furhat.say{
+        +"Alright!"
+        +delay(500)
+        +"Let’s start with a light question."
         }
-        furhat.ask("What is the last movie you have watched at the cinema?", timeout = 6000)
+        furhat.ask("What was the last movie you watched in a cinema?", timeout = 7000)
     }
-
-    onReentry {
-        furhat.ask("You have reentered the greeting state")
-    }
-
     onResponse {
-        goto(AskIfRecommends)
+        goto(RecommendMovie)
     }
-
     onNoResponse {
-        furhat.ask("Sorry, my question was, what is the latest movie you saw in the cinema?")
+        furhat.ask("Do you remember what the last movie you watched in cinema was?")
     }
 }
 
-val AskIfRecommends: State = state(Parent) {
+val RecommendMovie: State = state(Parent) {
     onEntry {
-        furhat.ask("Is it a movie you would recommend?")
+        furhat.ask("Would you recommend this movie to others?", timeout = 2000)
     }
-    onResponse {
+    onResponse<Yes> {
+        furhat.say("Great, I heard some very positive things about it as well.")
+        goto(RememberMovieState)
+    }
+    //FIXME: Doesn't work
+    onResponse<No>{
+        furhat.say("Oh. Do you have a specific reason for that?")
+        furhat.listen(timeout = 10000)
         goto(RememberMovieState)
     }
     onNoResponse {
-        furhat.ask("Would you recommend this movie?")
+        furhat.ask("Would you recommend this movie to others?")
     }
 }
 
 val RememberMovieState: State = state(Parent) {
     onEntry {
+        furhat.say("I see. Moving on to the next question.")
         furhat.ask("Do you remember your first movie experience ever  by any chance?", timeout = 2000)
     }
     onResponse{

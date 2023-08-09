@@ -11,27 +11,13 @@ class GenreIntent(var genre : Genres? = null) : Intent() {
     }
 }
 
-class GoodAndYou : Intent()  {
+class Ready : Intent()  {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "I'm fine thank you, and you?",
-            "I'm good, how about you?",
-            "I'm doing good thanks, you?",
-            "good and you?",
-            "well, and you?",
-            "I'm good, how are you?",
-            "I'm doing well, how are you?"
+            "I'm ready",
+            "Let's go",
+            "We can start",
+            "ready"
         )
-    }
-}
-class Good : Intent()  {
-    override fun getExamples(lang: Language): List<String> {
-        return listOf(
-            "I'm fine thank you",
-            "I'm good",
-            "I'm doing good thanks",
-            "good",
-            "well"
-            )
     }
 }
