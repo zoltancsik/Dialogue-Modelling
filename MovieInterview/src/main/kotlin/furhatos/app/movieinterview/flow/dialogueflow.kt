@@ -89,7 +89,7 @@ val AskGenreState: State = state(Parent) {
             +"Now switching to your personal movie taste."
             +delay(2000)
         }
-        furhat.say("If you had to go for just one: What would be your favourite movie genre?")
+        furhat.ask("If you had to go for just one: What would be your favourite movie genre?")
     }
     onReentry {
         furhat.ask("What is your favourite genre?")
@@ -98,10 +98,8 @@ val AskGenreState: State = state(Parent) {
     // Since we only allow GenreIntent as an answer, this secures that getMoviesByGenre will have a return value
     onResponse<GenreIntent>{
         favouriteGenre = it.intent.genre.toString()
-        // Here, define the worst rated movie for each genre
-        filmfromGenre = getMovieByGenre(favouriteGenre)
-
-        furhat.say("Oh, like $filmfromGenre?")
+        filmfromGenre = getWorstMovieByGenre(favouriteGenre)
+        furhat.say("Cool, I like $favouriteGenre movies as well.")
         goto(SeenMovieState)
     }
 
@@ -113,99 +111,67 @@ val AskGenreState: State = state(Parent) {
         }
         furhat.ask("What would be your favourite genre?")
     }
-
-    onResponseFailed{
-        reentry()
-    }
 }
 
 val SeenMovieState: State = state(Parent) {
     onEntry {
-        furhat.ask("Have you seen $filmfromGenre?")
+        furhat.ask("Have you seen $filmfromGenre")
     }
 
     onResponse<Yes>{
         furhat.say{
-            +"I think..."
-            +delay(200)
-            +"i watched it in the cinema with friends when it came out."
-            +delay(200)
+            +"Well, that is interesting."
+            +"According to IMDB, it is the lowest rated $favouriteGenre movie at the moment."
+            +"Did you like it?" //#FIXME
         }
-        goto(WhereYouWatched)
+        goto(HighestRatedOfGenre)
     }
 
     onResponse<No>{
-        val movieName = filmfromGenre.toString()
-        val plot = getplotbyMovie(movieName)
         furhat.say{
-            +"It's a movie about $plot" // gets a specific description from intents
-            +"I enjoyed watching it."
-            +"It certainly is a recommendation from me."
+            +"I am not surprised. It is the lowest rated $favouriteGenre movie on IMDB at the moment."
             +delay(200)
         }
-        filmfromGenre = getMovieByGenre(favouriteGenre)
-        furhat.ask("How about $filmfromGenre? Have you seen it?")
-    }
-    onNoResponse {
-        furhat.ask("Have you seen $filmfromGenre?")
+        goto(HighestRatedOfGenre)
     }
 }
 
-val WhereYouWatched: State = state(Parent) {
+val HighestRatedOfGenre: State = state(Parent) {
     onEntry {
-        furhat.ask("Do you remember where you watched the movie?")
+        furhat.ask("What do you think is the highest rated movie in this genre?")
     }
     onResponse {
-        goto(MainActorState)
+        goto(HaveYouSeenIt)
     }
 }
 
-val MainActorState: State = state(Parent) {
+val HaveYouSeenIt: State = state(Parent) {
+    onEntry {
+        furhat.ask("Have you seen it?")
+    }
+    onResponse{
+        goto(MainActors)
+    }
+}
+
+val MainActors: State = state(Parent){
     onEntry {
         furhat.ask("Do you remember who the main actors were?")
     }
-
-    onResponse<Yes> {
-        furhat.say("Yeah, they were amazing")
-        goto(WatchitAgainState)
-    }
-
-    onResponse<No> {
-        val movie = filmfromGenre.toString()
-        val actor = getactorbyMovie(movie)
-        furhat.say("$actor played the main character and gave an amazing performance")
-        goto(WatchitAgainState)
+    onResponse{
+        goto(WatchItAgain)
     }
     onNoResponse {
-        furhat.ask("Do you remember who the main actors in $filmfromGenre were?")
+        furhat.ask("Who were the main actors of that movie?")
     }
 }
 
-val WatchitAgainState: State = state(Parent) {
+val WatchItAgain: State = state(Parent){
     onEntry {
         furhat.ask("Would you watch it again?")
     }
-
-    onResponse<Yes> {
-        furhat.say{
-            +"I"
-            +delay(300)
-            +"think I would too."
-            +"I have only seen it once so far"
-        }
+    onResponse{
         goto(RecommendMeSomething)
-    }
-
-    onResponse<No> {
-        furhat.say {
-            +"Me neither"
-            +delay(200)
-            +"Because I have seen it three times by now"
-        }
-        goto(RecommendMeSomething)
-    }
-    onNoResponse {
-        furhat.ask("Would you watch $filmfromGenre again?")
     }
 }
 

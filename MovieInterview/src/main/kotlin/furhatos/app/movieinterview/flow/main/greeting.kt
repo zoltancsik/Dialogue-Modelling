@@ -5,6 +5,7 @@ import furhatos.flow.kotlin.*
 
 val StartInteraction: State = state(Parent) {
     onEntry {
+        goto(AskGenreState)
         furhat.say {
             +"Hello! You have been invited to do a short interview."
             +"In the first part I will ask a couple of questions about cinema and in the second about your movie preference."
