@@ -20,7 +20,7 @@ val StartInteraction: State = state(Parent) {
     }
 
     onResponse {
-       furhat.ask("Is it a movie you would recommend?")
+       goto(AskIfRecommends)
     }
 
     onNoResponse {

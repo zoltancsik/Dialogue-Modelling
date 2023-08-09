@@ -6,27 +6,27 @@ import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 
-val AskMovieState: State = state(Parent) {
+val AskIfRecommends: State = state(Parent) {
     onEntry {
-        furhat.ask("What was the last movie you watched?")
+        furhat.ask("Is it a movie you would recommend?")
     }
     onResponse {
         goto(RememberMovieState)
     }
     onNoResponse {
-        furhat.ask("The last movie you have watched, what was it?")
+        furhat.ask("Would you recommend this movie?")
     }
 }
 
 val RememberMovieState: State = state(Parent) {
     onEntry {
-        furhat.ask("What do you remember about it?")
+        furhat.ask("Do you remember your first movie experience ever  by any chance?", timeout = 2000)
     }
     onResponse{
         goto(RecommendMovieState)
     }
     onNoResponse {
-        furhat.ask("What was memorable about the movie?")
+        furhat.ask("Do you remember your first movie experience ever?")
     }
 }
 
