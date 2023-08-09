@@ -21,7 +21,7 @@ val Init: State = state {
         /** start interaction */
         when {
             users.hasAny() -> {
-                furhat.voice = Voice( name="Matthew-neural", rate = 1.17)
+                furhat.voice = Voice( name="Matthew-neural", rate = 1.1)
                 furhat.character = "Jamie"
                 furhat.attend(users.random)
                 goto(StartInteraction)

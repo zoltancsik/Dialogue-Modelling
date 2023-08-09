@@ -17,7 +17,49 @@ class Ready : Intent()  {
             "I'm ready",
             "Let's go",
             "We can start",
-            "ready"
+            "ready",
+            "Yes",
+            "start"
+        )
+    }
+}
+
+class Home : Intent()  {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+            "at home",
+            "house",
+            "home"
+        )
+    }
+}
+
+class Cinema : Intent()  {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+            "at the cinema",
+            "movies",
+            "at the movies"
+        )
+    }
+}
+
+class Both : Intent()  {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+            "i like both",
+            "both"
+        )
+    }
+}
+
+class IdontKnow : Intent()  {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+            "i don't know",
+            "I have no idea",
+            "no",
+            "no clue"
         )
     }
 }

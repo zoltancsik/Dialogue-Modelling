@@ -5,6 +5,7 @@ import furhatos.flow.kotlin.*
 
 val StartInteraction: State = state(Parent) {
     onEntry {
+        goto(WhyCinemaDying)
         val greeting = getTimeBasedGreeting()
         furhat.say {
             +"$greeting and thank you for joining me and taking the time for this interview."
@@ -16,6 +17,10 @@ val StartInteraction: State = state(Parent) {
             +"During our conversation, feel free to just say whatever is on your mind"
         }
         furhat.ask("Let me know if you are ready to start.", timeout = 10000)
+    }
+
+    onReentry {
+        furhat.ask("Are you ready to start the interview?")
     }
 
     onResponse<Ready>{

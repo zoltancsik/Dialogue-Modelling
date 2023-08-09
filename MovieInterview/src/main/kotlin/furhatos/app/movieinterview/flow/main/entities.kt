@@ -24,12 +24,34 @@ fun getWorstMovieByGenre(genre: String): String {
         "horror" to "Saw",
         "romance" to "La la land",
         "sci-fi" to "Dune",
+        "science fiction" to "Dune",
         "thriller" to "The silence of the lambs",
         "western" to "The good, the bad and the ugly"
     )
 
     return moviesByGenre[genre] ?: "I don't really know any movies in that genre."
 }
+
+fun getBestMovieByGenre(genre: String): String {
+    val moviesByGenre = mapOf(
+        "action" to "The Flash",
+        "adventure" to "Indiana Jones",
+        "animation" to "Toy Story",
+        "comedy" to "Monty Python and the Holy Grail",
+        "crime/mystery" to "James Bond",
+        "drama" to "12 years a slave",
+        "fantasy" to "Lord of the Rings",
+        "horror" to "Saw",
+        "romance" to "La la land",
+        "sci-fi" to "Dune",
+        "science fiction" to "Dune",
+        "thriller" to "The silence of the lambs",
+        "western" to "The good, the bad and the ugly"
+    )
+
+    return moviesByGenre[genre] ?: "I don't really know any movies in that genre."
+}
+
 
 fun getactorbyMovie(movie: String): String {
     val moviesByGenre = mapOf(
