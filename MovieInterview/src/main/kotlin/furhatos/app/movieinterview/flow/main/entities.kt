@@ -15,8 +15,8 @@ class Genres : EnumEntity(speechRecPhrases = true) {
 fun getWorstMovieByGenre(genre: String): String {
     val moviesByGenre = mapOf(
         "action" to "Chaos Rising",
-        "adventure" to "Indiana Jones",
-        "animation" to "Toy Story",
+        "adventure" to "Polaris, the Space Submarine and the Mystery of the Polar Night",
+        "animation" to "Sunflower",
         "comedy" to "Monty Python and the Holy Grail",
         "crime/mystery" to "James Bond",
         "drama" to "12 years a slave",
@@ -35,8 +35,8 @@ fun getWorstMovieByGenre(genre: String): String {
 fun getBestMovieByGenre(genre: String): String {
     val moviesByGenre = mapOf(
         "action" to "The Flash",
-        "adventure" to "Indiana Jones",
-        "animation" to "Toy Story",
+        "adventure" to "Polaris, the Space Submarine and the Mystery of the Polar Night",
+        "animation" to "Miraculous: Ladybug & Cat Noir, The Movie",
         "comedy" to "Monty Python and the Holy Grail",
         "crime/mystery" to "James Bond",
         "drama" to "12 years a slave",
@@ -70,5 +70,14 @@ fun getTimeBasedGreeting(): String {
         // Says good afternoon till 18 o'clock
         currentTime.isBefore(LocalTime.of(18, 0)) -> "Good afternoon"
         else -> "Good evening"
+    }
+}
+
+fun getDayTimeBasedOnTime(): String {
+    val currentTime = LocalTime.now()
+    return when {
+        currentTime.isBefore(LocalTime.NOON) -> "this morning"
+        currentTime.isBefore(LocalTime.of(18, 0)) -> "this afternoon"
+        else -> "tonight"
     }
 }

@@ -19,6 +19,7 @@ class Ready : Intent()  {
             "We can start",
             "ready",
             "Yes",
+            "already",
             "start"
         )
     }

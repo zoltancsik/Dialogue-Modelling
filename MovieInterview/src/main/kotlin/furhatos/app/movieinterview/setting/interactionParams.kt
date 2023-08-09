@@ -6,3 +6,4 @@ const val DISTANCE_TO_ENGAGE = 1.0 // Min distance for people to be recognised a
 var filmfromGenre : String ? = null
 var favouriteGenre : String = ""
 var ratingImportant : Boolean ? = null
+var userseenMostPopularMovie : Boolean ? = null
