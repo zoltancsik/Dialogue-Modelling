@@ -23,54 +23,73 @@ val RememberMovieState: State = state(Parent) {
         furhat.ask("Do you remember your first movie experience ever  by any chance?", timeout = 2000)
     }
     onResponse{
-        goto(RecommendMovieState)
+        goto(WhatDoYouRemember)
     }
     onNoResponse {
         furhat.ask("Do you remember your first movie experience ever?")
     }
 }
 
-val RecommendMovieState: State = state(Parent) {
+val WhatDoYouRemember: State = state(Parent) {
     onEntry {
-        furhat.ask("Would you recommend this movie?")
+        furhat.ask("What do you remember about it?")
     }
-    onResponse<Yes>{
-        recommendsMovie = true
-        goto(WhyRecommendMovie)
-    }
-    onResponse<No>{
-        recommendsMovie = false
-        goto(WhyRecommendMovie)
+    onResponse {
+        goto(CinemaNumbers)
     }
     onNoResponse {
-        furhat.ask("Would you recommend this movie?")
+        furhat.ask("What do you remember about your first movie experience?")
     }
 }
 
-val WhyRecommendMovie: State = state(Parent) {
+val CinemaNumbers: State = state(Parent) {
     onEntry {
-        if(recommendsMovie == true){
-            furhat.ask("Why would you recommend it?")
+        furhat.ask{
+                    +"Last year the people saw on average 1 movie a year in the cinema."
+                    +"How about you? How often do you go to the cinema per year?"
         }
-        else
-            furhat.ask("Why would you not recommend it?")
     }
     onResponse{
-        goto(AskGenreState)
+        goto(IsCinemaDying)
     }
     onNoResponse {
-        furhat.ask("Would you recommend this movie?")
+        furhat.ask("How often do you go to the cinema?")
+    }
+}
+
+val IsCinemaDying: State = state(Parent){
+    onEntry {
+        furhat.say{
+            + "The number of visits have been continuously going down."
+            + "In 2002 there were still 2 visits on average."
+        }
+        furhat.ask("Is cinema dying?", timeout = 2000)
+    }
+    onResponse{
+        goto(WhyCinemaDying)
+    }
+    onNoResponse {
+        furhat.ask("Do you think that cinema is dying?")
+    }
+}
+
+val WhyCinemaDying: State = state(Parent){
+    onEntry {
+        furhat.ask("Why do you think that?")
+    }
+    onResponse{
+        furhat.say("Alright")
+        goto(AskGenreState)
     }
 }
 
 val AskGenreState: State = state(Parent) {
     onEntry {
         furhat.say {
-            +"I'll keep that in mind, if I ever get the chance to watch it."
+            +"Now switching to your personal movie taste."
             +delay(2000)
         }
         furhat.say("If you had to go for just one: What would be your favourite movie genre?")
-        furhat.ask("Please say action because the other options are not implemented yet")
     }
     onReentry {
         furhat.ask("What is your favourite genre?")
@@ -79,6 +98,7 @@ val AskGenreState: State = state(Parent) {
     // Since we only allow GenreIntent as an answer, this secures that getMoviesByGenre will have a return value
     onResponse<GenreIntent>{
         favouriteGenre = it.intent.genre.toString()
+        // Here, define the worst rated movie for each genre
         filmfromGenre = getMovieByGenre(favouriteGenre)
 
         furhat.say("Oh, like $filmfromGenre?")
