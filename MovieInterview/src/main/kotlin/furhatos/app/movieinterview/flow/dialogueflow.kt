@@ -6,6 +6,33 @@ import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 
+val StartInterview: State = state(Parent){
+    onEntry {
+        furhat.say {
+            +"Thank you for joining me and taking the time for this interview."
+            +"It won't take too long, don't worry."
+            +"In the first part of the Interview, I will ask a couple of questions about cinema."
+            +"In the second part we will focus a bit more on your personal habits and preferences."
+            +delay(1000)
+            +"Let’s start with a light question."
+            +delay(2000)
+        }
+        furhat.ask("What is the last movie you have watched at the cinema?", timeout = 6000)
+    }
+
+    onReentry {
+        furhat.ask("You have reentered the greeting state")
+    }
+
+    onResponse {
+        goto(AskIfRecommends)
+    }
+
+    onNoResponse {
+        furhat.ask("Sorry, my question was, what is the latest movie you saw in the cinema?")
+    }
+}
+
 val AskIfRecommends: State = state(Parent) {
     onEntry {
         furhat.ask("Is it a movie you would recommend?")

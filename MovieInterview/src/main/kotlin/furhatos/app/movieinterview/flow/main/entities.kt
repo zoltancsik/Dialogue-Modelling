@@ -2,7 +2,7 @@ package furhatos.app.movieinterview.flow.main
 
 import furhatos.nlu.EnumEntity
 import furhatos.util.Language
-import kotlin.random.Random
+import java.time.LocalTime
 
 class Genres : EnumEntity(speechRecPhrases = true) {
     override fun getEnum(lang: Language): List<String> {
@@ -38,4 +38,15 @@ fun getactorbyMovie(movie: String): String {
         "Die hard" to "Bruce Willis."
     )
     return moviesByGenre[movie] ?: "I don't really remember either"
+}
+
+fun getTimeBasedGreeting(): String {
+    val currentTime = LocalTime.now()
+    return when {
+        // Says good morning till 12 am
+        currentTime.isBefore(LocalTime.NOON) -> "Good morning"
+        // Says good afternoon till 18 o'clock
+        currentTime.isBefore(LocalTime.of(18, 0)) -> "Good afternoon"
+        else -> "Good evening"
+    }
 }
