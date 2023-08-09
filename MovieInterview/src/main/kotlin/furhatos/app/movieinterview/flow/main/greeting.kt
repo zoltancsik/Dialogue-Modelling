@@ -5,40 +5,34 @@ import furhatos.flow.kotlin.*
 
 val StartInteraction: State = state(Parent) {
     onEntry {
+        val greeting = getTimeBasedGreeting()
+        val dayTime = getDayTimeBasedOnTime()
         furhat.say {
-            +"Hello! I would like to have a short interview with you."
-            +"I will just ask a couple of questions about movies and feel free to say the first thing which comes to mind."
-            +delay(2000)
-            +"Let’s start with a light question."
-            +delay(2000)
+            +"$greeting."
+            +delay(500)
+            +"First of all, I would like to thank you for joining me $dayTime and taking the time for this interview."
+            +"It won't take too long, don't worry."
+            +delay(100)
+            +"I would like to ask you to answer some questions."
+            +"I divided them into two main parts."
+            +"In the first half, I will ask your opinion about movies and cinema in general."
+            +"In the second part we will focus a bit more on your personal habits and preferences."
+            +delay(500)
+            +"During our conversation, feel free to just say whatever is on your mind"
+            +delay(500)
         }
-        furhat.ask("How many movies do you watch per month on average?")
+        furhat.ask("Let me know if you are ready to start.", timeout = 10000)
     }
 
     onReentry {
-        // With this we will end up in an endless loop of furhat not understanding the response
-        // Maybe implement a counter that stops the dialogue after 3 reentries?
-        furhat.ask("I'm not sure I understood that, could you repeat the number?")
+        furhat.ask("Are you ready to start the interview?")
     }
 
-    onResponse {
-        val responseText = it.text.trim()
-        val number = extractFirstNumber(responseText)
-
-        if (number != null) {
-            val moviesYear = number * 12
-            furhat.say {
-                +"That is about $moviesYear movies a year."
-                +"Since I have Netflix I probably watch around 4 movies a month. "
-                +delay(2000)
-            }
-            goto(AskMovieState)
-        } else {
-            reentry()
-        }
+    onResponse<Ready>{
+        goto(LastMovieWatched)
     }
 
     onNoResponse {
-        furhat.ask("Could you give me a number on how many movies you watch per month?")
+        furhat.ask("Let me know if you are ready to start.")
     }
 }

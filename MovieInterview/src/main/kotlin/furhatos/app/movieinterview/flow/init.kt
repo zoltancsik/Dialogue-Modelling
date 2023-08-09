@@ -8,6 +8,9 @@ import furhatos.flow.kotlin.State
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.state
 import furhatos.flow.kotlin.users
+import furhatos.flow.kotlin.voice.Voice
+import furhatos.util.Gender
+import furhatos.util.Language
 
 val Init: State = state {
     init {
@@ -18,6 +21,8 @@ val Init: State = state {
         /** start interaction */
         when {
             users.hasAny() -> {
+                furhat.voice = Voice( name="Matthew-neural", rate = 1.1)
+                furhat.character = "Jamie"
                 furhat.attend(users.random)
                 goto(StartInteraction)
             }
