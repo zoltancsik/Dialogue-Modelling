@@ -11,12 +11,12 @@ val StartInteraction: State = state(Parent) {
             +"$greeting."
             +delay(500)
             +"First of all, I would like to thank you for joining me $dayTime and taking the time for this interview."
-            +"It won't take too long, don't worry."
+            +"It won't take too long."
             +delay(100)
-            +"I would like to ask you to answer some questions."
-            +"I divided them into two main parts."
-            +"In the first half, I will ask your opinion about movies and cinema in general."
-            +"In the second part we will focus a bit more on your personal habits and preferences."
+            +"I would like to ask you some questions about cinema and movies."
+            +"The interview is divided into two parts."
+            +"In the first half, I will ask you about cinema in general."
+            +"In the second part, I will focus a bit more on your personal preferences."
             +delay(500)
             +"During our conversation, feel free to just say whatever is on your mind"
             +delay(500)
