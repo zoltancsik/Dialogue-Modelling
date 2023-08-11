@@ -3,11 +3,8 @@ package furhatos.app.movieinterview.flow
 import furhatos.app.movieinterview.flow.main.*
 import furhatos.app.movieinterview.setting.*
 import furhatos.flow.kotlin.*
-import furhatos.nlu.common.DontKnow
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
-import kotlinx.coroutines.withTimeout
-import org.apache.commons.io.filefilter.TrueFileFilter
 
 val LastMovieWatched: State = state(Parent) {
     onEntry {
@@ -377,3 +374,4 @@ val EndInterAction: State = state(Parent) {
         goto(Idle)
     }
 }
+
