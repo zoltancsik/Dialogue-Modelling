@@ -5,7 +5,7 @@ import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 
 val Parent: State = state {
-    onInterimResponse(endSil = 500) {
+    onInterimResponse(endSil = 3000) {
         // Give some feedback, indicating that FurHat is listening.
         random (
             { furhat.gesture(Gestures.Nod) },
