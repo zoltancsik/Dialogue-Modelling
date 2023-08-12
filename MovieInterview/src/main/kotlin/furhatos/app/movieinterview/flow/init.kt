@@ -30,5 +30,4 @@ val Init: State = state {
             else -> goto(Idle)
         }
     }
-
 }
