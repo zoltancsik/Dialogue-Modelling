@@ -39,6 +39,7 @@ class Cinema : Intent()  {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
             "at the cinema",
+            "in the cinema",
             "movies",
             "at the movies"
         )
