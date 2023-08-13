@@ -50,7 +50,7 @@ val RecommendMovie: State = state(Parent) {
 
 val WhyNotLikeMovie: State = state(Parent){
     onEntry {
-        furhat.ask("Why not? Was there anything specific you did not like about it?", timeout = 5000, endSil = 5000)
+        furhat.ask("Why not? Was there anything specific you did not like about it?", timeout = 5000, endSil = 2000)
     }
     onResponse<WhatQuestion>{
         reentry()

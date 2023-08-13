@@ -42,9 +42,6 @@ class Cinema : Intent()  {
         return listOf(
             "at the cinema",
             "in the cinema",
-            "movies",
-            "the movies",
-            "at the movies",
             "cinema"
         )
     }
