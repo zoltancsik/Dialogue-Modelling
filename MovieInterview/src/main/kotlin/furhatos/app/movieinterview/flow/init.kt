@@ -21,13 +21,14 @@ val Init: State = state {
         /** start interaction */
         when {
             users.hasAny() -> {
-                furhat.voice = Voice( name="Matthew-neural", rate = 1.05)
+                furhat.voice = Voice( name="Matthew-neural", rate = 0.9)
                 furhat.character = "Jamie"
-                furhat.param.endSilTimeout = 2500
+                furhat.param.endSilTimeout = 3000
                 furhat.attend(users.random)
                 goto(StartInteraction)
             }
             else -> goto(Idle)
         }
     }
+
 }

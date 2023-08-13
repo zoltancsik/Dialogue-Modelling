@@ -16,6 +16,9 @@ val LastMovieWatched: State = state(Parent) {
         }
         furhat.ask("What was the last movie you watched in the cinema?", timeout = 5000)
     }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onResponse {
         goto(RecommendMovie)
     }
@@ -34,6 +37,12 @@ val RecommendMovie: State = state(Parent) {
     onResponse<No>{
         goto(WhyNotLikeMovie)
     }
+    onResponse<Uncertain>{
+        goto(UncertainMovie)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onReentry {
         furhat.ask("Would you recommend it to others?", timeout = 3000)
     }
@@ -43,11 +52,29 @@ val WhyNotLikeMovie: State = state(Parent){
     onEntry {
         furhat.ask("Why not? Was there anything specific you did not like about it?", timeout = 5000)
     }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onResponse {
         goto(RememberMovieState)
     }
     onReentry {
         furhat.ask("What did you not like about it", timeout = 5000)
+    }
+}
+
+val UncertainMovie: State = state(Parent){
+    onEntry {
+        furhat.ask("Why are you uncertain about it?", timeout = 5000)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
+    onResponse {
+        goto(RememberMovieState)
+    }
+    onReentry {
+        furhat.ask("What makes you hesitate", timeout = 5000)
     }
 }
 
@@ -61,7 +88,7 @@ val RememberMovieState: State = state(Parent) {
     }
     onResponse<No>{
         furhat.say{
-            +"Understandable. I also cannot remember."
+            +"Understandable. I only remember pieces."
             +delay(200)
         }
         furhat.say()
@@ -70,6 +97,9 @@ val RememberMovieState: State = state(Parent) {
     onResponse<Yes>{
         goto(WhatDoYouRemember)
     }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onReentry {
         furhat.ask("Do you remember your first cinema experience?", timeout = 5000)
     }
@@ -77,7 +107,10 @@ val RememberMovieState: State = state(Parent) {
 
 val WhatDoYouRemember: State = state(Parent) {
     onEntry {
-        furhat.ask("What do you still remember about it? Like movie, cinema or year", timeout = 5000)
+        furhat.ask("What do you still remember about it? Like the movie, the cinema or the year", timeout = 5000)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
     }
     onResponse {
         goto(CinemaNumbers)
@@ -98,6 +131,9 @@ val CinemaNumbers: State = state(Parent) {
         }
         furhat.ask("How about you? How often do you go to the cinema per year?", timeout = 5000)
     }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onResponse{
         goto(IsCinemaDying)
     }
@@ -109,14 +145,17 @@ val CinemaNumbers: State = state(Parent) {
 val IsCinemaDying: State = state(Parent){
     onEntry {
         furhat.say{
-            + "Interesting."
-            +delay(100)
+            + "Me too."
+            +delay(300)
             + "The average number of visits to the cinema has been declining in Germany."
             + "If we look back in time, in 2002 there were still two visits per year on average."
             + "Double of what it was last year"
             +delay(200)
         }
         furhat.ask("Do you think that this decline has to do with the rise of streaming services?", timeout = 5000)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
     }
     onResponse{
         goto(WhyCinemaDying)
@@ -135,16 +174,31 @@ val HomeOrCinema: State = state(Parent){
             timeout = 3000)
     }
     onResponse<Cinema>{
-        furhat.say("Right, I guess it's just a different feeling when you get to see movies on the big screen.")
+        furhat.say{
+            +"Right,"
+            +delay(100)
+            +"I guess it's just a different feeling when you get to see movies on the big screen."
+        }
         goto(PrepareGenreState)
     }
     onResponse<Home> {
-        furhat.say("Right, I guess it is more comfortable than going to the cinema.")
+        furhat.say{
+            +"Right,"
+            +delay(100)
+            +"I guess it is more comfortable than going to the cinema."
+        }
         goto(PrepareGenreState)
     }
     onResponse<Both> {
-        furhat.say("I agree, I like watching the newest movies in the cinema, but I enjoy movie nights at home much more.")
+        furhat.say{
+            +"I agree,"
+            +delay(100)
+            +"I like watching the newest movies in the cinema, but I enjoy movie nights at home much more."
+        }
         goto(PrepareGenreState)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
     }
     onReentry {
         furhat.ask(
@@ -156,6 +210,9 @@ val HomeOrCinema: State = state(Parent){
 val WhyCinemaDying: State = state(Parent){
     onEntry {
         furhat.ask("Could you elaborate on that?", timeout = 5000)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
     }
     onResponse{
         goto(HomeOrCinema)
@@ -184,6 +241,9 @@ val PrepareGenreState: State = state(Parent){
         ratingImportant = false
         goto(AskGenreState)
     }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onReentry {
         furhat.ask("Is it important to you that a movie was awarded an Oscar or has a good rating?", timeout = 3000)
     }
@@ -191,10 +251,17 @@ val PrepareGenreState: State = state(Parent){
 
 val AskGenreState: State = state(Parent) {
     onEntry {
-        furhat.say{
-            +"I usually have at least a look at the Oscar nominations."
+        if(ratingImportant == true) {
+            furhat.say {
+                +"To me it is not that important, but I usually have at least a look at the Oscar nominations."
+                +delay(300)
+                +"Next question."
+            }
+        }
+        else {furhat.say{
+            +"I am not keen on it either, but have a look at the Oscar nominations."
             +delay(300)
-            +"Next question."
+            +"Next question."}
         }
         furhat.ask("If you had to decide for just one: What would be your favourite movie genre?", timeout = 5000)
     }
@@ -206,6 +273,9 @@ val AskGenreState: State = state(Parent) {
         furhat.say("I like $favouriteGenre movies as well.")
         goto(SeenMovieState)
     }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onResponse{
         furhat.say{
             +"I am not sure I understand."
@@ -216,7 +286,6 @@ val AskGenreState: State = state(Parent) {
         }
         furhat.ask("Which one of these would be your favourite genre?", timeout = 5000)
     }
-
     onReentry {
         furhat.ask("What is your favourite movie genre?", timeout = 5000)
     }
@@ -248,6 +317,9 @@ val SeenMovieState: State = state(Parent) {
             }
         goto(HighestRatedOfGenre)
     }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onReentry {
         furhat.ask("Have you ever seen $filmfromGenre?", timeout = 3000)
     }
@@ -259,14 +331,12 @@ val HighestRatedOfGenre: State = state(Parent) {
         furhat.ask("How about $filmfromGenre, have you seen it?", timeout = 3000)
     }
     onResponse<Yes> {
+        userseenMostPopularMovie = true
         if(ratingImportant == true) {
             furhat.say("I thought so, it is an Oscar nominated movie.")
-            userseenMostPopularMovie = true
         }
         else{
-            furhat.say{
-                +"It is an Oscar nominated movie after all."
-            }
+            furhat.say("It is an Oscar nominated movie after all.")
         }
         goto(WatchItAgain)
     }
@@ -283,6 +353,9 @@ val HighestRatedOfGenre: State = state(Parent) {
             }
         }
         goto(WatchItAgain)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
     }
     onReentry {
         filmfromGenre = getBestMovieByGenre(favouriteGenre)
@@ -305,6 +378,12 @@ val WatchItAgain: State = state(Parent){
     }
     onResponse<No> {
         goto(RecommendMeSomething)
+    }
+    onResponse<Uncertain> {
+        goto(RecommendMeSomething)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
     }
     onReentry {
         if(userseenMostPopularMovie == true)
@@ -335,6 +414,9 @@ val WhereToWatch: State = state(Parent){
         }
         goto(RecommendMeSomething)
     }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onReentry {
         furhat.ask("Would you watch it at home or in the cinema?", timeout = 3000)
     }
@@ -347,14 +429,15 @@ val RecommendMeSomething: State = state(Parent) {
             +delay(200)
         }
         furhat.ask(
-            "Could you recommend me a movie? It can be an $favouriteGenre movie or any other genre.",
+            "Could you recommend me a movie? It can be a $favouriteGenre movie or any other genre.",
             timeout = 5000)
     }
-
     onResponse<Yes> {
         furhat.ask("Which one?")
     }
-
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onResponse{
         goto(RecommendationState)
     }
@@ -371,6 +454,9 @@ val RecommendationState: State = state(Parent){
         }
         furhat.ask("What is the plot of the movie?", timeout = 5000)
     }
+    onResponse<WhatQuestion>{
+        reentry()
+    }
     onResponse {
         goto(GiveMeRecommendation)
     }
@@ -382,6 +468,9 @@ val RecommendationState: State = state(Parent){
 val GiveMeRecommendation: State = state(Parent){
     onEntry {
         furhat.ask("And what did you like about it?", timeout = 5000)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
     }
     onResponse{
         furhat.say{
@@ -403,6 +492,9 @@ val LastQuestion: State = state(Parent){
         furhat.say("What are your absolute favorite movies?")
         furhat.ask("If you had to choose a couple, that you have to watch for the rest of your life, which ones would those be?",
             timeout = 5000)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
     }
     onResponse{
         goto(EndInterAction)
