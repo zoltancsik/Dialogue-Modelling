@@ -5,6 +5,7 @@ import furhatos.flow.kotlin.*
 
 val StartInteraction: State = state(Parent) {
     onEntry {
+        goto(AskGenreState)
         val greeting = getTimeBasedGreeting()
         val dayTime = getDayTimeBasedOnTime()
         furhat.say {
