@@ -28,11 +28,10 @@ class Ready : Intent()  {
 class Home : Intent()  {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "at home",
             "in my house",
             "in my home",
             "house",
-            "at my house",
+            "house",
             "home"
         )
     }

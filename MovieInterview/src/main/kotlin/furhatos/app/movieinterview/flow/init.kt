@@ -9,8 +9,6 @@ import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.state
 import furhatos.flow.kotlin.users
 import furhatos.flow.kotlin.voice.Voice
-import furhatos.util.Gender
-import furhatos.util.Language
 
 val Init: State = state {
     init {
