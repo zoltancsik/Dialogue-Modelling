@@ -29,7 +29,10 @@ class Home : Intent()  {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
             "at home",
+            "in my house",
+            "in my home",
             "house",
+            "at my house",
             "home"
         )
     }
@@ -41,7 +44,9 @@ class Cinema : Intent()  {
             "at the cinema",
             "in the cinema",
             "movies",
-            "at the movies"
+            "the movies",
+            "at the movies",
+            "cinema"
         )
     }
 }
@@ -55,13 +60,30 @@ class Both : Intent()  {
     }
 }
 
-class IdontKnow : Intent()  {
+class Uncertain : Intent()  {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "i don't know",
-            "I have no idea",
-            "no",
-            "no clue"
+            "i am not sure",
+            "not sure",
+            "maybe",
+            "maybe not"
+        )
+    }
+}
+
+class WhatQuestion : Intent()  {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+            "what is the question",
+            "what was the question",
+            "what is the question again",
+            "what was the question again",
+            "Pardon",
+            "Could you repeat that",
+            "What",
+            "Say what",
+            "I did not get that",
+            "I did not understand that"
         )
     }
 }

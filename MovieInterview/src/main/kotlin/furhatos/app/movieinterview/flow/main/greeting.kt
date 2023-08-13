@@ -29,7 +29,10 @@ val StartInteraction: State = state(Parent) {
     }
 
     onResponse<Ready>{
-        goto(AskGenreState)
+        goto(LastMovieWatched)
+    }
+    onResponse<WhatQuestion>{
+        reentry()
     }
 
 }

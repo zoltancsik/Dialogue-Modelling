@@ -17,18 +17,19 @@ fun getWorstMovieByGenre(genre: String): String {
         "action" to "Chaos Rising",
         "adventure" to "Polaris, the Space Submarine and the Mystery of the Polar Night",
         "animation" to "Sunflower",
-        "comedy" to "Monty Python and the Holy Grail",
-        "crime/mystery" to "James Bond",
+        "comedy" to "Single Dad 2",
+        "crime/mystery" to "Faded Leaher",
         "documentary" to "Finding Home: Journey to MLB",
         "documentaries" to "Finding Home: Journey to MLB",
-        "drama" to "12 years a slave",
-        "fantasy" to "Lord of the Rings",
-        "horror" to "Saw",
-        "romance" to "La la land",
-        "sci-fi" to "Dune",
-        "science fiction" to "Dune",
-        "thriller" to "The silence of the lambs",
-        "western" to "The good, the bad and the ugly"
+        "drama" to "Why not",
+        "fantasy" to "The Ride",
+        "horror" to "PLaying with fire",
+        "romance" to "Good girl",
+        "sci-fi" to "Ghost project",
+        "sci fi" to "Ghost project",
+        "science fiction" to "Ghost project",
+        "thriller" to "Below Deck Deceit",
+        "western" to "Steady on"
     )
 
     return moviesByGenre[genre] ?: "I don't really know any movies in that genre."
@@ -48,6 +49,7 @@ fun getBestMovieByGenre(genre: String): String {
         "horror" to "Parasite",
         "romance" to "The Artist",
         "sci-fi" to "Dune",
+        "sci fi" to "Dune",
         "science fiction" to "Dune",
         "thriller" to "The Departed",
         "western" to "Dances with Wolves"
