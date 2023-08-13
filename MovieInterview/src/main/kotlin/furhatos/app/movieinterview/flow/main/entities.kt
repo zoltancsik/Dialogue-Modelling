@@ -8,7 +8,7 @@ class Genres : EnumEntity(speechRecPhrases = true) {
     override fun getEnum(lang: Language): List<String> {
         return listOf("action", "adventure", "animation", "comedy",
             "crime", "documentary", "drama", "fantasy", "horror",
-            "romance", "sci-fi", "thriller", "western")
+            "romance", "sci-fi", "science fiction", "sci fi", "thriller", "western")
     }
 }
 
@@ -32,7 +32,7 @@ fun getWorstMovieByGenre(genre: String): String {
         "western" to "Steady on"
     )
 
-    return moviesByGenre[genre] ?: "I don't really know any movies in that genre."
+    return moviesByGenre[genre.toLowerCase()] ?: "I don't really know any movies in that genre."
 }
 
 fun getBestMovieByGenre(genre: String): String {
@@ -55,7 +55,7 @@ fun getBestMovieByGenre(genre: String): String {
         "western" to "Dances with Wolves"
     )
 
-    return moviesByGenre[genre] ?: "I don't really know any movies in that genre."
+    return moviesByGenre[genre.toLowerCase()] ?: "I don't really know any movies in that genre."
 }
 
 fun getTimeBasedGreeting(): String {

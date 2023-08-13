@@ -491,8 +491,8 @@ val GiveMeRecommendation: State = state(Parent){
 
 val LastQuestion: State = state(Parent){
     onEntry {
-        furhat.say("What are your absolute favorite movies?")
-        furhat.ask("If you had to choose a couple, that you have to watch for the rest of your life, which ones would those be?",
+        furhat.say("If you had to choose one,")
+        furhat.ask("What do you think is the best movie ever made?",
             timeout = 5000, endSil = 5000)
     }
     onResponse<WhatQuestion>{
