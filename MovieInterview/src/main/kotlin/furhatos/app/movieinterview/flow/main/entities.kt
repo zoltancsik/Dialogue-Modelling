@@ -7,7 +7,7 @@ import java.time.LocalTime
 class Genres : EnumEntity(speechRecPhrases = true) {
     override fun getEnum(lang: Language): List<String> {
         return listOf("action", "adventure", "animation", "comedy",
-            "crime", "documentary", "drama", "fantasy", "horror",
+            "crime", "documentary", "documentaries", "drama", "fantasy", "horror",
             "romance", "sci-fi", "science fiction", "sci fi", "thriller", "western")
     }
 }
@@ -23,7 +23,7 @@ fun getWorstMovieByGenre(genre: String): String {
         "documentaries" to "Finding Home: Journey to MLB",
         "drama" to "Why not",
         "fantasy" to "The Ride",
-        "horror" to "PLaying with fire",
+        "horror" to "Playing with fire",
         "romance" to "Good girl",
         "sci-fi" to "Ghost project",
         "sci fi" to "Ghost project",
