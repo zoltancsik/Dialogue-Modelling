@@ -83,3 +83,15 @@ class WhatQuestion : Intent()  {
         )
     }
 }
+
+class Idontknow : Intent()  {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+            "I don't know",
+            "I have no idea",
+            "I am not sure",
+            "No idea",
+            "Don't know"
+        )
+    }
+}
