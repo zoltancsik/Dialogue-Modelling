@@ -9,7 +9,8 @@ val Parent: State = state {
         // Give some feedback, indicating that FurHat is listening.
         random (
             { furhat.gesture(Gestures.Nod) },
-            { furhat.gesture(Gestures.Thoughtful) }
+            { furhat.gesture(Gestures.BigSmile) },
+            { furhat.gesture(Gestures.Smile) }
         )
     }
 
