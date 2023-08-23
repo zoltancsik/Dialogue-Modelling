@@ -454,11 +454,11 @@ val SeenMovieState: State = state(Parent) {
         }
         else
             furhat.gesture(Gestures.Nod)
-        furhat.gesture(Gestures.BigSmile)
-        furhat.say {
-            +"Well, that makes sense, since it is the lowest rated $favouriteGenre movie on IMDB at the moment."
-            +delay(200)
-        }
+            furhat.gesture(Gestures.BigSmile)
+            furhat.say {
+                +"Well, that makes sense, since it is the lowest rated $favouriteGenre movie on IMDB at the moment."
+                +delay(200)
+            }
         goto(HighestRatedOfGenre)
     }
     onResponse<Idontknow> {
