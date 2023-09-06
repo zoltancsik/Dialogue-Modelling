@@ -60,11 +60,9 @@ def calculate_avg_words_per_sentence():
         total_words += words_per_line
         
     avg_word_count = total_words / len(filtered_lines) if filtered_lines else 0
-    print("\n|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||")
     print(f"Average number of words per sentence: {round(avg_word_count,2)}.")
     print(f"Calculation: sum_of_avg_words_sentence/total_number_of_sentences.")
     print(f"In Exact Numbers: {avg_word_count}/{len(filtered_lines)}.")
-    print("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n")
 
 def calculate_unique_words_score():
     total_unique_words = 0
@@ -73,11 +71,9 @@ def calculate_unique_words_score():
         total_unique_words += unique_words_per_line
         
     average_unique_words = total_unique_words / len(filtered_lines) if filtered_lines else 0
-    print("\n|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||")
     print(f"Average number of unique words per sentence: {round(average_unique_words,2)}.")
     print(f"Calculation: sum_of_unique_value/total_number_of_sentences.")
     print(f"In Exact Numbers: {total_unique_words}/{len(filtered_lines)}.")
-    print("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n")
 
 @click.command()
 @click.option('--filename', type=click.Path(exists=True), prompt=True, help='Path to the file.')
