@@ -75,7 +75,7 @@ class DataAnalysis:
         """
         sentences = sent_tokenize(lines)
         sentence_lentgth = [len(sentence) for sentence in sentences]
-        return sentence_lentgth
+        return sentence_lentgth[0]
 
 def calculate_avg_words_per_sentence():
     total_words = 0
@@ -98,10 +98,15 @@ def calculate_unique_words_score():
     print(f"In Exact Numbers: {total_unique_words}/{len(filtered_lines)}.\n")
 
 def calculate_sentence_length():
+    sum_of_sentence_length = 0
     for sentence in filtered_lines:
         sentence_length = dialogue.sentence_length(strip_sentence(sentence))
-        print(sentence)
-        print(sentence_length)
+        sum_of_sentence_length += sentence_length
+
+    # # Calculating the average sentence length
+    avg_sentence_length = sum_of_sentence_length/len(filtered_lines)
+    print(f"Avg. Sentence length: {round(avg_sentence_length,2)}. (sum_of_sentence_length/total_number_of_sentences)")
+    print(f"In Exact Numbers: {round(sum_of_sentence_length,2)}/{len(filtered_lines)}.\n")
 
 def strip_sentence(sentence):
     # Use regular expression to remove spaces and special characters
@@ -114,6 +119,6 @@ if __name__ == "__main__":
     filtered_lines = dialogue.filter_B()
 
     # Call the calculations
-    # calculate_avg_words_per_sentence()
-    # calculate_unique_words_score()
+    calculate_avg_words_per_sentence()
+    calculate_unique_words_score()
     calculate_sentence_length()
