@@ -1,6 +1,15 @@
 from nltk.tokenize import word_tokenize
+from nltk.tokenize import sent_tokenize
 from collections import Counter
 import click
+
+@click.command()
+@click.option('--filename', type=click.Path(exists=True), prompt=True, help='Path to the file.')
+def process_data(filename):
+    """Data Analysis script"""
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+    return lines
 
 class DataAnalysis:
     def __init__(self, lines):
@@ -53,6 +62,20 @@ class DataAnalysis:
         unique_words = set(Counter(words_stripped))
         return len(unique_words)
 
+    def sentence_length(self, lines):
+        """
+        Count the length of each sentence in the input dialogue, excluding certain punctuations.
+        
+        Parameters:
+        - lines (str): The sentence to be analyzed.
+
+        Returns:
+        - int: The The length of each sentence, excluding '.', ',', or '?'.
+        """
+        sentences = sent_tokenize(lines)
+        sentence_lentgth = [len(sentence) for sentence in sentences]
+        return sentence_lentgth
+
 def calculate_avg_words_per_sentence():
     total_words = 0
     for line in filtered_lines:
@@ -73,13 +96,12 @@ def calculate_unique_words_score():
     print(f"Avg. Unique words/Sentence: words per sentence: {round(average_unique_words,2)}. (sum_of_unique_value/total_number_of_sentences)")
     print(f"In Exact Numbers: {total_unique_words}/{len(filtered_lines)}.\n")
 
-@click.command()
-@click.option('--filename', type=click.Path(exists=True), prompt=True, help='Path to the file.')
-def process_data(filename):
-    """Data Analysis script"""
-    with open(filename, 'r') as file:
-        lines = file.readlines()
-    return lines
+def calculate_sentence_length():
+    # Calculate sentence length based on the amount of characters
+    for sentence in filtered_lines:
+        sentence_length = dialogue.sentence_length(sentence)
+        print(sentence)
+        print(sentence_length)
 
 if __name__ == "__main__":
     lines = process_data(standalone_mode=False)
@@ -87,5 +109,6 @@ if __name__ == "__main__":
     filtered_lines = dialogue.filter_B()
 
     # Call the calculations
-    calculate_avg_words_per_sentence()
-    calculate_unique_words_score()
+    # calculate_avg_words_per_sentence()
+    # calculate_unique_words_score()
+    calculate_sentence_length()
