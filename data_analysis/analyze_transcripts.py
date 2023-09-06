@@ -39,8 +39,15 @@ if __name__ == "__main__":
         lines = file.readlines()
         
     dialogue = DataAnalysis(lines)
-    
     filtered_lines = dialogue.filter_B()
+    
+    total_unique_words = 0
     for line in filtered_lines:
+        unique_words_per_line = dialogue.count_unique_words(line)
+        total_unique_words += unique_words_per_line
         print(line, end='')
-        print("Number of unique words:", dialogue.count_unique_words(line))
+        print("NUM:", unique_words_per_line)
+        
+    average_unique_words = total_unique_words / len(filtered_lines) if filtered_lines else 0
+    print(f"Average number of unique words per sentence: {round(average_unique_words,2)}, for {len(filtered_lines)} sentences")
+    print(f"Calculation: {total_unique_words}/{len(filtered_lines)}")
