@@ -1,5 +1,6 @@
 from nltk.tokenize import word_tokenize
 from collections import Counter
+import click
 
 class DataAnalysis:
     def __init__(self, lines):
@@ -34,13 +35,7 @@ class DataAnalysis:
         unique_words = set(Counter(words_stripped))
         return len(unique_words)
 
-if __name__ == "__main__":
-    with open('../transcribed_data/HC1.txt', 'r') as file:
-        lines = file.readlines()
-        
-    dialogue = DataAnalysis(lines)
-    filtered_lines = dialogue.filter_B()
-    
+def calculate_unique_words_score():
     total_unique_words = 0
     for line in filtered_lines:
         unique_words_per_line = dialogue.count_unique_words(line)
@@ -53,3 +48,17 @@ if __name__ == "__main__":
     print(f"Average number of unique words per sentence: {round(average_unique_words,2)}.")
     print(f"Calculation: sum_of_unique_value/total_number_of_sentences.")
     print(f"In Numbers: {total_unique_words}/{len(filtered_lines)}.")
+
+@click.command()
+@click.option('--filename', type=click.Path(exists=True), prompt=True, help='Path to the file.')
+def process_data(filename):
+    """Data Analysis script"""
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+    return lines
+
+if __name__ == "__main__":
+    lines = process_data(standalone_mode=False)
+    dialogue = DataAnalysis(lines)
+    filtered_lines = dialogue.filter_B()
+    calculate_unique_words_score()  
