@@ -60,7 +60,7 @@ def calculate_avg_words_per_sentence():
         total_words += words_per_line
         
     avg_word_count = total_words / len(filtered_lines) if filtered_lines else 0
-    print(f"Average number of words per sentence: {round(avg_word_count,2)}. (sum_of_avg_words_sentence/total_number_of_sentences)")
+    print(f"Avg. words/Sentence: {round(avg_word_count,2)}. (sum_of_avg_words_sentence/total_number_of_sentences)")
     print(f"In Exact Numbers: {total_words}/{len(filtered_lines)}.\n")
 
 def calculate_unique_words_score():
@@ -70,7 +70,7 @@ def calculate_unique_words_score():
         total_unique_words += unique_words_per_line
         
     average_unique_words = total_unique_words / len(filtered_lines) if filtered_lines else 0
-    print(f"Average number of unique words per sentence: {round(average_unique_words,2)}. (sum_of_unique_value/total_number_of_sentences)")
+    print(f"Avg. Unique words/Sentence: words per sentence: {round(average_unique_words,2)}. (sum_of_unique_value/total_number_of_sentences)")
     print(f"In Exact Numbers: {total_unique_words}/{len(filtered_lines)}.\n")
 
 @click.command()
