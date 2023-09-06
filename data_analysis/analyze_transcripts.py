@@ -2,6 +2,7 @@ from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from collections import Counter
 import click
+import re
 
 @click.command()
 @click.option('--filename', type=click.Path(exists=True), prompt=True, help='Path to the file.')
@@ -97,11 +98,15 @@ def calculate_unique_words_score():
     print(f"In Exact Numbers: {total_unique_words}/{len(filtered_lines)}.\n")
 
 def calculate_sentence_length():
-    # Calculate sentence length based on the amount of characters
     for sentence in filtered_lines:
-        sentence_length = dialogue.sentence_length(sentence)
+        sentence_length = dialogue.sentence_length(strip_sentence(sentence))
         print(sentence)
         print(sentence_length)
+
+def strip_sentence(sentence):
+    # Use regular expression to remove spaces and special characters
+    cleaned_sentence = re.sub(r'[^A-Za-z0-9]+', '', sentence)
+    return cleaned_sentence
 
 if __name__ == "__main__":
     lines = process_data(standalone_mode=False)
