@@ -1,4 +1,3 @@
-from xml.etree.ElementTree import tostring
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from collections import Counter
