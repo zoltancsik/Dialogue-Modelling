@@ -142,6 +142,6 @@ if __name__ == "__main__":
     filtered_lines = dialogue.filter_B()
 
     # Call the calculations
+    calculate_sentence_length()
     calculate_avg_words_per_sentence()
     calculate_unique_words_score()
-    calculate_sentence_length()
