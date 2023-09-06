@@ -1,6 +1,7 @@
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from collections import Counter
+from lexicalrichness import LexicalRichness
 import click
 import re
 
