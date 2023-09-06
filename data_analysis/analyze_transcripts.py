@@ -1,23 +1,28 @@
 from nltk.tokenize import word_tokenize
+from collections import Counter
 
 class DataAnalysis:
-    def __init__(self, filename):
-        self.filename = filename
+    def __init__(self, lines):
+        self.lines = lines
 
     def filter_B(self):
-        with open(self.filename, 'r') as file:
-            lines = file.readlines()
-            filtered_lines = [line for line in lines if line.startswith('B: ')]
+        filtered_lines = [line[3:] for line in self.lines if line.startswith('B: ')]
         return filtered_lines
     
-    def count_unique_words(self, sentence):
-        # Tokenizing the sentence using NLTK's word_tokenize
-        words = [word.lower() for word in word_tokenize(sentence)]  
-        unique_words = set(words)  # Use a set to get the unique words
+    def count_unique_words(self, lines): 
+        words = word_tokenize(lines)
+        words_stripped = []
+        for char in words:
+            if char not in ['.', ',', '?']:
+                words_stripped.append(char)
+        unique_words = set(Counter(words_stripped))
         return len(unique_words)
 
 if __name__ == "__main__":
-    dialogue = DataAnalysis('../transcribed_data/HC1.txt')
+    with open('../transcribed_data/HC1.txt', 'r') as file:
+        lines = file.readlines()
+        
+    dialogue = DataAnalysis(lines)
     
     filtered_lines = dialogue.filter_B()
     for line in filtered_lines:
