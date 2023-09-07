@@ -124,6 +124,7 @@ def remove_contractions(line):
     # Define a list of replacement patterns and their corresponding replacements
     patterns_and_replacements = [
         (r"'s", "s"),
+        (r"'m", "m"),
         (r"'t", "t"),
         (r"'d", "d"),
         (r"'v", "v")  # Replace all possible contractions
