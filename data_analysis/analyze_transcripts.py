@@ -55,7 +55,7 @@ class DataAnalysis:
         words_stripped = []
         for char in words:
             if char not in ['.', ',', '?', '!']:
-                words_stripped.append(char)
+                words_stripped.append(char.lower())
         unique_words = set(Counter(words_stripped))
         return len(unique_words)
 
