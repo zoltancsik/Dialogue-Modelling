@@ -88,6 +88,17 @@ class DataAnalysis:
         return words_stripped
 
 def calculate_lexical_diversity():
+    """
+    Calculate the lexical diversity of a list of filtered lines.
+    
+    Parameters:
+    - filtered_lines (list): List of texts to be processed.
+    - remove_contractions_func (function): A function to remove contractions from text.
+    - dialogue.lex_divers (function): Tokenizes the given string using NLTK word_tokenize.
+    
+    Returns:
+    - float: Root Type-Token Ratio (RTTR) score.
+    """
     plain_text = ""
     for line in remove_contractions(filtered_lines):
         words_per_line = dialogue.lex_divers(line)
