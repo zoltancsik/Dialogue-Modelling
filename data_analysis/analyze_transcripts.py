@@ -1,7 +1,7 @@
-from xml.etree.ElementTree import tostring
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from collections import Counter
+from lexicalrichness import LexicalRichness
 import click
 import re
 
@@ -78,12 +78,34 @@ class DataAnalysis:
         sentence_lentgth = [len(sentence) for sentence in sentences]
         return sentence_lentgth[0]
 
+    def lex_divers(self, lines):
+        words = word_tokenize(lines)
+        words_stripped = []
+        for char in words:
+            if char not in ['.', ',', '?']:
+                words_stripped.append(char)
+
+        return words_stripped
+
+def calculate_lexical_diversity():
+    plain_text = ""
+    for line in remove_contractions(filtered_lines):
+        words_per_line = dialogue.lex_divers(line)
+        sentence = ' '.join(words_per_line)
+        plain_text += sentence + ' '
+    
+    lex = LexicalRichness(plain_text)
+    root_ttr_score = lex.rttr
+    print(f"Root TTR Score: {root_ttr_score}")
+
+
 def calculate_avg_words_per_sentence():
     total_words = 0
     for line in remove_contractions(filtered_lines):
         words_per_line = dialogue.count_avg_words(line)
         total_words += words_per_line
-        
+
+    # Calculating Average Word count/sentence.    
     avg_word_count = total_words / len(filtered_lines) if filtered_lines else 0
     print(f"Avg. words/Sentence: {round(avg_word_count,2)}.")
     print("(sum_of_avg_words_sentence/total_number_of_sentences).")
@@ -94,7 +116,8 @@ def calculate_unique_words_score():
     for line in remove_contractions(filtered_lines):
         unique_words_per_line = dialogue.count_unique_words(line)
         total_unique_words += unique_words_per_line
-        
+    
+    #Calculating average unique words    
     average_unique_words = total_unique_words / len(filtered_lines) if filtered_lines else 0
     print(f"Avg. Unique words/Sentence: words per sentence: {round(average_unique_words,2)}.")
     print("(sum_of_unique_value/total_number_of_sentences)")
@@ -124,6 +147,7 @@ def remove_contractions(line):
     # Define a list of replacement patterns and their corresponding replacements
     patterns_and_replacements = [
         (r"'s", "s"),
+        (r"'m", "m"),
         (r"'t", "t"),
         (r"'d", "d"),
         (r"'v", "v")  # Replace all possible contractions
@@ -142,6 +166,7 @@ if __name__ == "__main__":
     filtered_lines = dialogue.filter_B()
 
     # Call the calculations
+    calculate_sentence_length()
     calculate_avg_words_per_sentence()
     calculate_unique_words_score()
-    calculate_sentence_length()
+    calculate_lexical_diversity()
