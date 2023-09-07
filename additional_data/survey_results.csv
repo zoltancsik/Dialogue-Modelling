@@ -1,0 +1,25 @@
+Human-Human Dialogues,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+ID,Start time,Completion time,Email,Name,Last modified time,Date,Age,"Mother tongue
+",Gender,"Are you acquainted with the interviewer?
+","What is your mood?
+","Interest in movies
+","Interest in physical robots
+","Interest in AI
+","Open to new technologies
+",introvert - extrovert,incompetent - competent,artificial - lifelike,unfriendly - friendly,calm - agitated,ignorant - knowledgeable,apathetic - responsive,unconscious - conscious,stagnant - lively,anxious - relaxed,irresponsible - responsible,fake - natural,foolish -sensible,dislike - like,unintelligent - intelligent,unpleasant - pleasant,mechanical - organic,still - surprised,awful - nice,non-empathic - empathic,machinelike - humanlike,incompetent - competent2,artificial - lifelike2,unfriendly - friendly2,calm - agitated2,ignorant - knowledgeable2,apathetic - responsive2,unconscious - conscious2,stagnant - lively2,anxious - relaxed2,irresponsible - responsible2,fake - natural2,foolish -sensible2,dislike - like2,unintelligent - intelligent2,unpleasant - pleasant2,mechanical - organic2,still - surprised2,awful - nice2,non-empathic - empathic2,machinelike - humanlike2,annoying - enjoyable,not understandable - understandable,boring - exciting,uninteresting - interesting,unpredictable - predictable,unpleasant - pleasant,unsecure - secure,demotivating - motivating,does not meet expectations - meets expectations,unfriendly - friendly
+1,8/17/23 18:17:01,8/17/23 18:23:09,anonymous,,,17.08.2023,25,German,Non-binary,No,sad,5,1,1,2,3,2,1,5,1,2,1,1,2,5,5,1,3,5,5,5,2,1,5,3,2,3,3,4,5,4,2,4,3,4,4,2,4,,5,4,2,4,3,4,2,3,4,3,4,3,4,3,1,2,5
+2,8/19/23 12:27:52,8/19/23 12:33:42,anonymous,,,19.08.23,26,German,Man,No,indifferent,5,3,4,4,3,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,3,5,3,5,3,5,5,5,4,2,4,3,5,3,3,5,3,3,4,4,4,5,5,5,3,5,5,3,4,4
+3,8/21/23 22:33:12,8/21/23 22:42:58,anonymous,,,21.08.23,25,deutsch,Man,No,bored,2,4,3,5,3,4,3,4,2,4,3,4,3,3,5,4,3,5,5,5,3,3,4,4,5,2,3,3,2,1,1,2,2,1,4,5,1,3,2,2,4,2,4,4,5,2,3,2,2,2,3,5,3,3,4
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Human-Robot Dialogues,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+ID,Start time,Completion time,Email,Name,Last modified time,Date,Age,"Mother tongue
+",Gender,"Are you acquainted with the interviewer?
+","What is your mood?
+","Interest in movies
+","Interest in physical robots
+","Interest in AI
+","Open to new technologies
+",introvert - extrovert,incompetent - competent,artificial - lifelike,unfriendly - friendly,calm - agitated,ignorant - knowledgeable,apathetic - responsive,unconscious - conscious,stagnant - lively,anxious - relaxed,irresponsible - responsible,fake - natural,foolish -sensible,dislike - like,unintelligent - intelligent,unpleasant - pleasant,mechanical - organic,still - surprised,awful - nice,non-empathic - empathic,machinelike - humanlike,incompetent - competent2,artificial - lifelike2,unfriendly - friendly2,calm - agitated2,ignorant - knowledgeable2,apathetic - responsive2,unconscious - conscious2,stagnant - lively2,anxious - relaxed2,irresponsible - responsible2,fake - natural2,foolish -sensible2,dislike - like2,unintelligent - intelligent2,unpleasant - pleasant2,mechanical - organic2,still - surprised2,awful - nice2,non-empathic - empathic2,machinelike - humanlike2,annoying - enjoyable,not understandable - understandable,boring - exciting,uninteresting - interesting,unpredictable - predictable,unpleasant - pleasant,unsecure - secure,demotivating - motivating,does not meet expectations - meets expectations,unfriendly - friendly
+8,8/24/23 11:15:34,8/24/23 11:20:25,anonymous,,,24.08.2023,37,German,Man,No,joyful,5,3,4,5,3,5,5,5,2,5,5,5,5,4,5,5,5,5,5,5,5,3,5,4,5,4,5,5,2,4,5,4,5,4,4,5,4,5,4,4,5,2,5,5,5,5,5,3,4,2,5,5,4,4,5
+9,8/24/23 11:44:23,8/24/23 11:50:04,anonymous,,,24.08.2023,36,German,Woman,No,joyful,4,2,3,4,2,5,5,5,2,5,5,5,5,5,5,5,5,5,5,5,5,3,5,5,5,5,5,5,2,4,5,5,5,4,5,5,5,5,5,5,5,3,5,5,5,5,5,4,5,2,5,5,4,4,5
+10,8/24/23 18:21:33,8/24/23 18:25:42,anonymous,,,24.08.2023,28,German,Man,No,neutral,4,2,4,5,5,5,5,5,1,5,5,5,4,4,5,4,5,5,5,5,5,2,5,5,5,5,5,5,2,4,5,5,4,4,4,3,4,4,4,4,5,4,,4,5,5,5,4,5,2,5,4,3,5,5
