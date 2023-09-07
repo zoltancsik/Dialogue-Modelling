@@ -1,17 +1,10 @@
+from cmath import exp
 from utilities import strip_sentence, remove_contractions
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from collections import Counter
 from lexicalrichness import LexicalRichness
 import click
-
-@click.command()
-@click.option('--filename', type=click.Path(exists=True), prompt=True, help='Path to the file.')
-
-def process_data(filename):
-    with open(filename, 'r') as file:
-        lines = file.readlines()
-    return lines
 
 class DataAnalysis:
     def __init__(self, lines):
@@ -98,7 +91,17 @@ class DataAnalysis:
 
         return words_stripped
 
-def calculate_lexical_diversity(lines):
+@click.command()
+@click.option('--filename', type=click.Path(exists=True), prompt=True, help='Path to the file.')
+@click.option('--explanation', '-exp', required=False, help='If --explanation=True, calculation formulas will be explained with output.')
+def process_data(filename, explanation):
+    global exp_needed
+    exp_needed = explanation
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+    return lines
+
+def calculate_lexical_diversity(lines, exp=False):
     """
     Calculate the lexical diversity of a list of filtered lines.
     
@@ -118,12 +121,15 @@ def calculate_lexical_diversity(lines):
     
     lex = LexicalRichness(plain_text)
     root_ttr_score = lex.rttr
-    print(f"Root TTR Score: {root_ttr_score}")
+    if exp:
+        print(f"Root TTR Score: {root_ttr_score}")
+    else:
+        print(f"No explanation TTR {root_ttr_score}")
 
     return root_ttr_score
 
 
-def calculate_avg_words_per_sentence(lines):
+def calculate_avg_words_per_sentence(lines, exp=False):
     """
     Calculate the average number of words per sentence for a list of tokenized lines.
     Tokenization and number of words/sentence count is done by the DataAnalysis Class
@@ -143,13 +149,14 @@ def calculate_avg_words_per_sentence(lines):
 
     # Calculating Average Word count/sentence.    
     avg_word_count = total_words / len(lines) if lines else 0
-    # print(f"Avg. words/Sentence: {round(avg_word_count,2)}.")
-    # print("(sum_of_avg_words_sentence/total_number_of_sentences).")
-    # print(f"In Exact Numbers: {total_words}/{len(lines)}.\n")
+    if exp:
+        print(f"Avg. words/Sentence: {round(avg_word_count,2)}.")
+        print("(sum_of_avg_words_sentence/total_number_of_sentences).")
+        print(f"In Exact Numbers: {total_words}/{len(lines)}.\n")
 
     return avg_word_count
 
-def calculate_unique_words_score(lines):
+def calculate_unique_words_score(lines, exp=False):
     """
     Calculate and print the average number of unique words per sentence for a list of tokenized lines.
     Tokenization and number of unique words/sentence count is done by the DataAnalysis Class
@@ -169,13 +176,14 @@ def calculate_unique_words_score(lines):
     
     #Calculating average unique words    
     average_unique_words = total_unique_words / len(lines) if lines else 0
-    # print(f"Avg. Unique words/Sentence: words per sentence: {round(average_unique_words,2)}.")
-    # print("(sum_of_unique_value/total_number_of_sentences)")
-    # print(f"In Exact Numbers: {total_unique_words}/{len(lines)}.\n")
+    if exp:
+        print(f"Avg. Unique words/Sentence: words per sentence: {round(average_unique_words,2)}.")
+        print("(sum_of_unique_value/total_number_of_sentences)")
+        print(f"In Exact Numbers: {total_unique_words}/{len(lines)}.\n")
 
     return average_unique_words
 
-def calculate_sentence_length(lines):
+def calculate_sentence_length(lines, exp=False):
     """
     Calculate and print the average sentence length for a list of filtered lines (based on characters).
     
@@ -199,20 +207,27 @@ def calculate_sentence_length(lines):
 
     #Calculating the average sentence length
     avg_sentence_length = sum_of_sentence_length/len(lines) if lines else 0
-    # print(f"Avg. Sentence length: {round(avg_sentence_length,2)}.")
-    # print("(sum_of_sentence_length/total_number_of_sentences)")
-    # print(f"In Exact Numbers: {round(sum_of_sentence_length,2)}/{len(lines)}.\n")
+    if exp:
+        print(f"Avg. Sentence length: {round(avg_sentence_length,2)}.")
+        print("(sum_of_sentence_length/total_number_of_sentences)")
+        print(f"In Exact Numbers: {round(sum_of_sentence_length,2)}/{len(lines)}.\n")
 
     return avg_sentence_length
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     lines = process_data(standalone_mode=False)
     dialogue = DataAnalysis(lines)
     filtered_lines = dialogue.filter_B()
 
-    # Call the calculations
-    print(f"Sentence Length: {round(calculate_sentence_length(filtered_lines),3)}.")
-    print(f"Average Words/Sentence: {round(calculate_avg_words_per_sentence(filtered_lines),3)}.")
-    print(f"Average Unique Words/Sentence: {round(calculate_unique_words_score(filtered_lines),3)}.")
-    print(f"Lexical Diversity: {round(calculate_lexical_diversity(filtered_lines),3)}")
-
+    if exp_needed:
+        # Execute calculations, with formulas being explained
+        calculate_sentence_length(filtered_lines, True)
+        calculate_avg_words_per_sentence(filtered_lines, True)
+        calculate_unique_words_score(filtered_lines, True)
+        calculate_lexical_diversity(filtered_lines, True)
+    else:
+        # Execute calculations without formulas being explained
+        print(f"Sentence Length: {round(calculate_sentence_length(filtered_lines, False),3)}.")
+        print(f"Average Words/Sentence: {round(calculate_avg_words_per_sentence(filtered_lines, False),3)}.")
+        print(f"Average Unique Words/Sentence: {round(calculate_unique_words_score(filtered_lines, False),3)}.")
+        print(f"Lexical Diversity: {round(calculate_lexical_diversity(filtered_lines, False),3)}")
