@@ -14,5 +14,5 @@ def test_count_words():
 def test_count_unique_words():
     # Test, whether the correct number of unique words is counted
     da = DataAnalysis([])
-    assert da.count_unique_words("Well well you") == 2
-    assert da.count_unique_words("One, two, two, three!") == 3
+    assert da.count_unique_words("Well, You know, I mean, well, you you know well, what I mean!") == 6
+    assert da.count_unique_words("If, if I say, If I agree, I help?") == 5
