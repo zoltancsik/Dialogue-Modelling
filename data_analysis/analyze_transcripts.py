@@ -122,6 +122,18 @@ def calculate_lexical_diversity():
 
 
 def calculate_avg_words_per_sentence():
+    """
+    Calculate the average number of words per sentence for a list of tokenized lines.
+    Tokenization and number of words/sentence count is done by the DataAnalysis Class
+        
+    Prints:
+    - The average word count per sentence.
+    - Formula explanation: (sum_of_avg_words_sentence/total_number_of_sentences).
+    - Exact number of total words and total sentences.
+    
+    Returns:
+    - None
+    """
     total_words = 0
     for line in remove_contractions(filtered_lines):
         words_per_line = dialogue.count_words(line)
@@ -134,6 +146,18 @@ def calculate_avg_words_per_sentence():
     print(f"In Exact Numbers: {total_words}/{len(filtered_lines)}.\n")
 
 def calculate_unique_words_score():
+    """
+    Calculate and print the average number of unique words per sentence for a list of tokenized lines.
+    Tokenization and number of unique words/sentence count is done by the DataAnalysis Class
+        
+    Prints:
+    - The average word count per sentence.
+    - Formula explanation: (sum_of_unique_value/total_number_of_sentences).
+    - Exact number of total unique words and total sentences.
+    
+    Returns:
+    - None
+    """
     total_unique_words = 0
     for line in remove_contractions(filtered_lines):
         unique_words_per_line = dialogue.count_unique_words(line)
@@ -146,6 +170,22 @@ def calculate_unique_words_score():
     print(f"In Exact Numbers: {total_unique_words}/{len(filtered_lines)}.\n")
 
 def calculate_sentence_length():
+    """
+    Calculate and print the average sentence length for a list of filtered lines (based on characters).
+    
+    Process the list tokenized lines to determine the length 
+    Stip each sentence from potential extra characters.
+    Tokenize text with NLTK sent_tokenize.
+    Calculate the average sentence length.
+        
+    Prints:
+    - The average sentence length.
+    - Formula explanation: (sum_of_sentence_length/total_number_of_sentences).
+    - Exact number of total sentence length and total sentences.
+    
+    Returns:
+    - None
+    """
     sum_of_sentence_length = 0
     for sentence in filtered_lines:
         sentence_length = dialogue.sentence_length(strip_sentence(sentence))
