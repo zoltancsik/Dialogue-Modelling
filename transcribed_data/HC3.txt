@@ -1,0 +1,55 @@
+ID: GMT202308231445
+A: Let me know if you are ready to start.
+B: Yes, thank you, I'm ready!
+A: What was the last movie you watched in the cinema?
+B: I think, maybe.
+A: I didn't hear anything.
+B: Maybe Captain Fantastic.
+A: Would you recommend this movie to others?
+B: Yeah I definitely would, it was great!
+A: What makes this movie a recommendation?
+B: It focued a lot..
+A: I didn't hear antyhing.
+B: It focused a lot on family relationships, all the, ehm, all the, ehm, outlooks of parents and children can clash, yeah.
+A: Do you remember the first time you went to the cinema?
+B: Ehm, no, I don't, I think I was too little to remember that.
+A: How often do you go to the cinema?
+B: I think I'm above average.
+B: Maybe like four or five times a year?
+A: Do you think the decline has to do with streaming servies?
+B: Hmm, Yes I think so.
+A: Could you ellaborate?
+B: I mean, ehm, like..
+B: Streaming services, you have to pay a fee monthly anyways, so it would be a lot of extra expenses when you can already watch a lot of movies at home, without extra money to got to the cinema.
+B: It's not like, I don't know, like fifty or sixty years ago, when cinemas or movies were the only options you had for watching a film.
+A: Do you prefer watching movies at home or at the cinema?
+A: Hmm, If i have people to go with..
+A: I dind't hear anything.
+B: If I have people to go with, I prefer the cinema, yes.
+A: I'm sorry, I did not understand.
+B: I like going to the cinema.
+A: Are ratings important for you?
+B: No I don't really trust the academy and I do not care that much about critique ratings at least.
+A: Favorite Genre?
+B: What genres do you know about?
+A: What is your Favorite movie genre?
+B: I guess I like action movies.
+A: Have you seen Chaos Rising?
+B: No, I haven't even heard about it.
+A: How about LOTR?
+B: Yes I have seen it, several times actually.
+A: Would you watch it again?
+B: Yeah definitely.
+A: at home or in the cinema?
+B: Given the choiche, I'd prefer to watch it in the cinema.
+A: I dind't hear anything.
+B: In the cinema.
+A: Recommend me a movie.
+B: Do you know station for two?
+A: What is the plot?
+B: It's about a convict and the station waitress that spend a lot of time together and start going closer eventually.
+B: It's a romantic movie and also a comedy.
+A: What did you like about it?
+B: I enjoyed the music and the easy-going pace of the film.
+A: Which movie would you watch for the rest of your life?
+B: Probably a documentary.
