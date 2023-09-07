@@ -1,9 +1,9 @@
+from utilities import strip_sentence, remove_contractions
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from collections import Counter
 from lexicalrichness import LexicalRichness
 import click
-import re
 
 @click.command()
 @click.option('--filename', type=click.Path(exists=True), prompt=True, help='Path to the file.')
@@ -19,7 +19,7 @@ class DataAnalysis:
 
     def filter_B(self):
         """
-        Filters and returns lines from the instance's `lines` attribute that start with 'B: '. 
+        Filters and returns lines from the input's `lines` attribute that start with 'B: '. 
         The 'B: ' prefix is removed from the returned lines.
 
         Returns:
@@ -28,9 +28,10 @@ class DataAnalysis:
         filtered_lines = [line[3:] for line in self.lines if line.startswith('B: ')]
         return filtered_lines
 
-    def count_avg_words(self, lines):
+    def count_words(self, lines):
         """
-        Count the number of words in the provided lines, excluding certain punctuations.
+        Use NLTK word_tokenize to tokenize the input sentence (lines)
+        Count the number of words in the provided line, excluding certain punctuations.
         
         Parameters:
         - lines (str): The sentence to be analyzed.
@@ -41,14 +42,15 @@ class DataAnalysis:
         words = word_tokenize(lines)
         words_stripped = []
         for char in words:
-            if char not in ['.', ',', '?']:
+            if char not in ['.', ',', '?', '!']:
                 words_stripped.append(char)
     
         return len(words_stripped)
 
     def count_unique_words(self, lines):
         """
-        Count the number of unique words in the provided lines, excluding certain punctuations.
+        Use NLTK word_tokenize to tokenize the input sentence (lines)
+        Count the number of unique words in the provided line, excluding certain punctuations.
         
         Parameters:
         - lines (str): The sentence to be analyzed.
@@ -59,7 +61,7 @@ class DataAnalysis:
         words = word_tokenize(lines)
         words_stripped = []
         for char in words:
-            if char not in ['.', ',', '?']:
+            if char not in ['.', ',', '?', '!']:
                 words_stripped.append(char)
         unique_words = set(Counter(words_stripped))
         return len(unique_words)
@@ -78,19 +80,39 @@ class DataAnalysis:
         sentence_lentgth = [len(sentence) for sentence in sentences]
         return sentence_lentgth[0]
 
-    def lex_divers(self, lines):
+    def tokenize_line(self, lines):
+        """
+        Use NLTK word_tokenize a given line of text and remove specific punctuation marks.
+        
+        Parameters:
+        - lines (str): The line of text to be tokenized.
+        
+        Returns:
+        - list: A list of words from the line with specific punctuation marks ('.', ',', '?') removed.
+        """
         words = word_tokenize(lines)
         words_stripped = []
         for char in words:
-            if char not in ['.', ',', '?']:
+            if char not in ['.', ',', '?', '!']:
                 words_stripped.append(char)
 
         return words_stripped
 
 def calculate_lexical_diversity():
+    """
+    Calculate the lexical diversity of a list of filtered lines.
+    
+    Parameters:
+    - filtered_lines (list): List of texts to be processed.
+    - remove_contractions_func (function): A function to remove contractions from text.
+    - dialogue.lex_divers (function): Tokenizes the given string using NLTK word_tokenize.
+    
+    Returns:
+    - float: Root Type-Token Ratio (RTTR) score.
+    """
     plain_text = ""
     for line in remove_contractions(filtered_lines):
-        words_per_line = dialogue.lex_divers(line)
+        words_per_line = dialogue.tokenize_line(line)
         sentence = ' '.join(words_per_line)
         plain_text += sentence + ' '
     
@@ -100,9 +122,21 @@ def calculate_lexical_diversity():
 
 
 def calculate_avg_words_per_sentence():
+    """
+    Calculate the average number of words per sentence for a list of tokenized lines.
+    Tokenization and number of words/sentence count is done by the DataAnalysis Class
+        
+    Prints:
+    - The average word count per sentence.
+    - Formula explanation: (sum_of_avg_words_sentence/total_number_of_sentences).
+    - Exact number of total words and total sentences.
+    
+    Returns:
+    - None
+    """
     total_words = 0
     for line in remove_contractions(filtered_lines):
-        words_per_line = dialogue.count_avg_words(line)
+        words_per_line = dialogue.count_words(line)
         total_words += words_per_line
 
     # Calculating Average Word count/sentence.    
@@ -112,6 +146,18 @@ def calculate_avg_words_per_sentence():
     print(f"In Exact Numbers: {total_words}/{len(filtered_lines)}.\n")
 
 def calculate_unique_words_score():
+    """
+    Calculate and print the average number of unique words per sentence for a list of tokenized lines.
+    Tokenization and number of unique words/sentence count is done by the DataAnalysis Class
+        
+    Prints:
+    - The average word count per sentence.
+    - Formula explanation: (sum_of_unique_value/total_number_of_sentences).
+    - Exact number of total unique words and total sentences.
+    
+    Returns:
+    - None
+    """
     total_unique_words = 0
     for line in remove_contractions(filtered_lines):
         unique_words_per_line = dialogue.count_unique_words(line)
@@ -124,6 +170,22 @@ def calculate_unique_words_score():
     print(f"In Exact Numbers: {total_unique_words}/{len(filtered_lines)}.\n")
 
 def calculate_sentence_length():
+    """
+    Calculate and print the average sentence length for a list of filtered lines (based on characters).
+    
+    Process the list tokenized lines to determine the length 
+    Stip each sentence from potential extra characters.
+    Tokenize text with NLTK sent_tokenize.
+    Calculate the average sentence length.
+        
+    Prints:
+    - The average sentence length.
+    - Formula explanation: (sum_of_sentence_length/total_number_of_sentences).
+    - Exact number of total sentence length and total sentences.
+    
+    Returns:
+    - None
+    """
     sum_of_sentence_length = 0
     for sentence in filtered_lines:
         sentence_length = dialogue.sentence_length(strip_sentence(sentence))
@@ -134,31 +196,6 @@ def calculate_sentence_length():
     print(f"Avg. Sentence length: {round(avg_sentence_length,2)}.")
     print("(sum_of_sentence_length/total_number_of_sentences)")
     print(f"In Exact Numbers: {round(sum_of_sentence_length,2)}/{len(filtered_lines)}.\n")
-
-def strip_sentence(sentence):
-    # Use regular expression to remove spaces and special characters
-    cleaned_sentence = re.sub(r'[^A-Za-z0-9]+', '', sentence)
-    return cleaned_sentence
-
-def remove_contractions(line):
-    # Initialize an empty list to store the modified lines
-    modified_lines = []
-
-    # Define a list of replacement patterns and their corresponding replacements
-    patterns_and_replacements = [
-        (r"'s", "s"),
-        (r"'m", "m"),
-        (r"'t", "t"),
-        (r"'d", "d"),
-        (r"'v", "v")  # Replace all possible contractions
-    ]
-    # Iterate through the text
-    for l in line:
-        for pattern, replacement in patterns_and_replacements:
-            l = re.sub(pattern, replacement, l)
-        modified_lines.append(l)
-
-    return(modified_lines)
 
 if __name__ == "__main__":
     lines = process_data(standalone_mode=False)
