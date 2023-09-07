@@ -31,3 +31,17 @@ def test_tokenize_line():
     da = DataAnalysis([])
     assert da.tokenize_line("Would you be interested in watching it again?") == ["Would", "you", "be", "interested", "in", "watching", "it", "again"]
     assert da.tokenize_line("I did not hear anything..") == ["I", "did", "not", "hear", "anything", ".."]
+
+def test_remove_contractions():
+    # Test if the contractions are properly removed
+    assert remove_contractions(["I's a student", "I'm happy", "Don't stop", "You'd like it", "They've won"]) == [
+        "Is a student",
+        "Im happy",
+        "Dont stop",
+        "Youd like it",
+        "Theyve won"
+    ]
+    # Test with mixed contractions
+    assert remove_contractions(["I'm, It's, it's the student's job"]) == ["Im, Its, its the students job"]
+
+    # You can add more test scenarios as needed.
