@@ -1,3 +1,58 @@
 ID: GMT202308231405
 A: Let me know if you are ready to start.
 B: I'm ready
+A: What was the last movie you watched in the cinema?
+B: I watched Oppenheimer.
+A: Would you recommend this movie to others?
+B: No I Don't think so.
+A: Why not? Was there anything specific you did not like about it?
+B: Yeah the three hour duration.
+B: It was a lot
+A: Do you remember the first time you went to the cinema?
+B: I remember a time.
+B: I don't know if it was the very first time.
+B: It was on my.
+A: I'm sorry, could you repeat that?
+B: No I don't remember
+A: How about you? How often do you go to the cinema per year?
+B: Not more than once.
+A: Do you think that this decline has to do with the rise of streaming services?
+B: Yes, most definitely.
+A: Could you elaborate on that?
+B: Watching movies at home is way more comfortable and cheaper.
+A: What about you? What is your preference? Do you rather watch movies at home or at the cinema?
+B: I watch most of my movies at home.
+A: If you want to watch something, is it important to you that it received good ratings or even was awarded an Oscar?
+B: No I don't mind that.
+A: I didn't hear anything.
+B: No it's not important to me.
+A: If you had to decide for just one: What would be your favourite movie genre?
+B: I don't know.
+A: I didn't hear anything.
+B: I don't know.
+B: Can you give me examples of genres?
+A: I am familiar with the following genres...
+B: Then it would be drama.
+A: Have you seen why not?
+B: Which movie, can you repeat?
+A: I don't know that movie name.
+A: I didn't hear anything.
+B: Which movie did you mean?
+B: No.
+A: How about Moonlight, have you seen it?
+B: No.
+A: Would you be interested in watching this movie in the future?
+B: What was that movie about?
+A: Would you be interested in this movie?
+B: no.
+A: I didn't hear anything.
+B: no.
+B: I think one of my favourite movies is Vicky Cristina Barcelona by Woody Allen.
+B: I think it's a great movie to watch.
+A: What is the plot of the movie?
+B: So two girls travel through barcelona together and there is a lot of romance and drama involved .
+A: And what did you like about it?
+B: All that drama, so I don't have to experience that drama myself and see other people experiencing it.
+A: What movie would it be?
+B: I think it would be clueless.
+
