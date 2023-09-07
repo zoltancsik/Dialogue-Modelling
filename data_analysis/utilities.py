@@ -1,4 +1,5 @@
 import re
+from lexicalrichness import LexicalRichness
 
 def strip_sentence(sentence):
     # Use regular expression to remove spaces and special characters
@@ -24,3 +25,9 @@ def remove_contractions(line):
         modified_lines.append(l)
 
     return(modified_lines)
+
+def calc_lexical_richness(text):
+    lex = LexicalRichness(text)
+    result = lex.rttr
+
+    return result
