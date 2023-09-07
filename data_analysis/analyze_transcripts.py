@@ -1,5 +1,5 @@
 from cmath import exp
-from utilities import strip_sentence, remove_contractions
+from utilities import strip_sentence, remove_contractions, calc_lexical_richness
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from collections import Counter
@@ -119,14 +119,13 @@ def calculate_lexical_diversity(lines, exp=False):
         sentence = ' '.join(words_per_line)
         plain_text += sentence + ' '
     
-    lex = LexicalRichness(plain_text)
-    root_ttr_score = lex.rttr
+    score = calc_lexical_richness(plain_text)
     if exp:
-        print(f"Root TTR Score: {root_ttr_score}")
+        print(f"Root TTR Score: {score}")
     else:
-        print(f"No explanation TTR {root_ttr_score}")
+        print(f"No explanation TTR {score}")
 
-    return root_ttr_score
+    return score
 
 
 def calculate_avg_words_per_sentence(lines, exp=False):
