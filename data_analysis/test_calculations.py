@@ -1,4 +1,5 @@
 from analyze_transcripts import DataAnalysis
+from utilities import strip_sentence
 
 def test_filter_B():
     # Test, whether filtering out the participants's sentences only work.
@@ -16,3 +17,8 @@ def test_count_unique_words():
     da = DataAnalysis([])
     assert da.count_unique_words("Well, You know, I mean, well, you you know well, what I mean!") == 6
     assert da.count_unique_words("If, if I say, If I agree, I help?") == 5
+
+def test_sentence_length():
+    da = DataAnalysis([])
+    assert da.sentence_length(strip_sentence("I don't know if it was the very first time.")) == 32
+    assert da.sentence_length(strip_sentence("Which movie, can you repeat?")) == 22
