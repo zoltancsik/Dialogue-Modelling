@@ -1,6 +1,6 @@
 from analyze_transcripts import DataAnalysis
-from utilities import strip_sentence
-from utilities import remove_contractions
+from utilities import strip_sentence, remove_contractions, calc_lexical_richness
+from lexicalrichness import LexicalRichness
 
 def test_filter_B():
     # Test, whether filtering out the participants's sentences only work.
@@ -44,4 +44,7 @@ def test_remove_contractions():
     # Test with mixed contractions
     assert remove_contractions(["I'm, It's, it's the student's job"]) == ["Im, Its, its the students job"]
 
-    # You can add more test scenarios as needed.
+def test_calculate_lexical_diversity():
+    text = "This is an example text, where lexical richness has to be counted"
+
+    assert round(calc_lexical_richness(text),2) == 3.46
