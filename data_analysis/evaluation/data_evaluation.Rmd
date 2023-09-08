@@ -92,10 +92,6 @@ Combine mean values from both Data Frames
 )
 ```
 
-```{r, include=TRUE, echo=FALSE}
-dialogue_summary
-```
-
 # Visual Comparison
 
 ```{r, include=TRUE, echo=FALSE}
@@ -120,8 +116,31 @@ Since we have two different types of Dialogues, the Two-sample independent t-tes
 
 ### First application: sentence lengths compared
 ```{r, include=TRUE, echo=FALSE}
-# Test 1 - Sentence length of human-human interactions
-x <- c(52.558, 55.209, 73.681)
-y <- c(33.372, 22.452, 38.393)
-t.test(x, y)
+# Test 1 - Sentence length
+group_1_sentence <- c(dialogue_HH$HH1[1], dialogue_HH$HH2[1], dialogue_HH$HH3[1])
+group_2_sentence <- c(dialogue_HC$HC1[1], dialogue_HC$HC2[1], dialogue_HC$HC3[1])
+t.test(group_1_sentence, group_2_sentence)
+```
+### Second application: Average words compared
+```{r, include=TRUE, echo=FALSE}
+# Test 2 - Average word count
+group_1_word <- c(dialogue_HH$HH1[2], dialogue_HH$HH2[2], dialogue_HH$HH3[2])
+group_2_word <- c(dialogue_HC$HC1[2], dialogue_HC$HC2[2], dialogue_HC$HC3[2])
+t.test(group_1_word, group_2_word)
+```
+
+### Third application: Average unique words compared
+```{r, include=TRUE, echo=FALSE}
+# Test 2 - Average unique word count
+group_1_unique_word <- c(dialogue_HH$HH1[3], dialogue_HH$HH2[3], dialogue_HH$HH3[3])
+group_2_unique_word <- c(dialogue_HC$HC1[3], dialogue_HC$HC2[3], dialogue_HC$HC3[3])
+t.test(group_1_unique_word, group_2_unique_word)
+```
+
+### Fourth application: Lexical Diversity
+```{r, include=TRUE, echo=FALSE}
+# Test 2 - Average unique word count
+group_1_lex <- c(dialogue_HH$HH1[4], dialogue_HH$HH2[4], dialogue_HH$HH3[4])
+group_2_lex <- c(dialogue_HC$HC1[4], dialogue_HC$HC2[4], dialogue_HC$HC3[4])
+t.test(group_1_lex, group_2_lex)
 ```
