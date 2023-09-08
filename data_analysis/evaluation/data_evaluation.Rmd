@@ -1,0 +1,146 @@
+---
+title: "Dialogue Data Evaluation"
+author: "Zoltán Csik"
+date: "2023-09-08"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+# Data Preparation
+
+This R Markdown serves the purpose of evaluating acquired dialogue data. The collected data represents several linguistic dialogue features.
+
+```{r, include=FALSE}
+# Creating the Data Frame
+dialogue_data <- data.frame(
+  Feature = c("Sentence Length", 
+              "Words per Sentence", 
+              "Unique words per Sentence", 
+              "Lexical Diversity"),
+  HH1 = c(52.558, 13.767, 12.093, 9.287),
+  HH2 = c(55.209, 13.478, 11.791, 11.006),
+  HH3 = c(73.681, 20.931, 17.056, 9.816),
+  HC1 = c(33.372, 8.721, 8.093, 9.618),
+  HC2 = c(22.452, 5.71, 5.613, 6.915),
+  HC3 = c(38.393, 9.714, 8.857, 8.277)
+)
+```
+
+```{r, include=TRUE, echo=FALSE}
+dialogue_data
+```
+
+# Divided Dialogues:
+
+To compare human-human data with human-robot data, the dataframe has to be split into two:
+
+```{r, include=FALSE}
+# Splitting the dataframe
+
+# Data Frame with HH1 to HH3
+dialogue_HH <- dialogue_data[, c("Feature", "HH1", "HH2", "HH3")]
+
+dialogue_HC <- dialogue_data[, c("Feature", "HC1", "HC2", "HC3")]
+```
+
+```{r, include=TRUE, echo=FALSE}
+dialogue_HH
+dialogue_HC
+```
+
+# Human-Human Diaogue Data
+
+Count the mean value for each linguistic feature data:
+
+```{r, include=FALSE}
+# Compute the mean for each measurement
+dialogue_HH$Mean <- rowMeans(dialogue_HH[, 2:4])
+```
+
+```{r, include=TRUE, echo=FALSE}
+dialogue_HH
+```
+
+\newpage
+
+# Human-Robot Diaogue Data
+
+Count the mean value for each linguistic feature data:
+
+```{r, include=FALSE}
+# Compute the mean for each measurement
+dialogue_HC$Mean <- rowMeans(dialogue_HC[, 2:4])
+```
+
+```{r, include=TRUE, echo=FALSE}
+dialogue_HC
+```
+
+# Combined Mean Values
+
+Combine mean values from both Data Frames
+
+```{r, include=FALSE}
+  dialogue_summary <- data.frame(
+  Feature = dialogue_HH$Feature,
+  HH = dialogue_HH$Mean,
+  HC = dialogue_HC$Mean
+)
+```
+
+# Visual Comparison
+
+```{r, include=TRUE, echo=FALSE}
+  ggplot(dialogue_summary) + 
+  geom_bar(aes(x = Feature, y = HH, fill = "Human-Human"), stat = "identity", position = "dodge") + 
+  geom_bar(aes(x = Feature, y = HC, fill = "Human-Computer"), stat = "identity", position = "dodge") +
+  scale_fill_manual(values=c("Human-Human"="darkgreen", "Human-Computer"="lightgreen")) +
+  scale_y_continuous(breaks = seq(0, max(dialogue_summary$HH, na.rm = TRUE), by = 2)) +
+  theme_minimal() +
+  labs(title = "Comparison of HH and HC", y = "Mean Measurement", x = "Linguistic Dialogue Feature", fill = "Type of Dialogue") +
+  theme(axis.text.x = element_text(size = 6, hjust = 1, angle = 45),
+        plot.title.position = "plot",
+        axis.text.y = element_text(size = 4),
+        plot.title = element_text(hjust = 0.5),
+        plot.margin = margin(1.1, 1.1, 1.1, 1.1, "cm"))
+```
+
+\newpage
+
+# Statistical Relevance
+Since we have two different types of Dialogues, the Two-sample independent t-test is applied:
+
+### First application: sentence lengths compared
+```{r, include=TRUE, echo=FALSE}
+# Test 1 - Sentence length
+group_1_sentence <- c(dialogue_HH$HH1[1], dialogue_HH$HH2[1], dialogue_HH$HH3[1])
+group_2_sentence <- c(dialogue_HC$HC1[1], dialogue_HC$HC2[1], dialogue_HC$HC3[1])
+t.test(group_1_sentence, group_2_sentence)
+```
+### Second application: Average words compared
+```{r, include=TRUE, echo=FALSE}
+# Test 2 - Average word count
+group_1_word <- c(dialogue_HH$HH1[2], dialogue_HH$HH2[2], dialogue_HH$HH3[2])
+group_2_word <- c(dialogue_HC$HC1[2], dialogue_HC$HC2[2], dialogue_HC$HC3[2])
+t.test(group_1_word, group_2_word)
+```
+
+### Third application: Average unique words compared
+```{r, include=TRUE, echo=FALSE}
+# Test 2 - Average unique word count
+group_1_unique_word <- c(dialogue_HH$HH1[3], dialogue_HH$HH2[3], dialogue_HH$HH3[3])
+group_2_unique_word <- c(dialogue_HC$HC1[3], dialogue_HC$HC2[3], dialogue_HC$HC3[3])
+t.test(group_1_unique_word, group_2_unique_word)
+```
+
+### Fourth application: Lexical Diversity
+```{r, include=TRUE, echo=FALSE}
+# Test 2 - Average unique word count
+group_1_lex <- c(dialogue_HH$HH1[4], dialogue_HH$HH2[4], dialogue_HH$HH3[4])
+group_2_lex <- c(dialogue_HC$HC1[4], dialogue_HC$HC2[4], dialogue_HC$HC3[4])
+t.test(group_1_lex, group_2_lex)
+```
