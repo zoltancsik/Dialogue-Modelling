@@ -1,0 +1,63 @@
+---
+title: "Dialogue Data Evaluation"
+author: "Zoltán Csik"
+date: "2023-09-08"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data Evaluation
+
+This R Markdown serves the purpose of evaluating acquired dialogue data. The collected data represents several linguistic dialogue features.
+Goal of this analysis:
+  - Determine the mean value for each linguistic feature that was measured. 
+
+```{r, include=FALSE}
+# Creating the Data Frame
+dialogue_data <- data.frame(
+  Feature = c("Sentence Length", 
+              "Words per Sentence", 
+              "Unique words per Sentence", 
+              "Lexical Diversity"),
+  HH1 = c(52.558, 13.767, 12.093, 9.287),
+  HH2 = c(55.209, 13.478, 11.791, 11.006),
+  HH3 = c(73.681, 20.931, 17.056, 9.816),
+  HC1 = c(33.372, 8.721, 8.093, 9.618),
+  HC2 = c(22.452, 5.71, 5.613, 6.915),
+  HC3 = c(38.393, 9.714, 8.857, 8.277)
+)
+```
+```{r, include=TRUE}
+dialogue_data
+```
+
+# Divided Dialogues:
+To compare human-human data with human-robot data, the dataframe has to be split into two:
+
+```{r, include=FALSE}
+# Splitting the dataframe
+
+# Data Frame with HH1 to HH3
+dialogue_HH <- dialogue_data[, c("Feature", "HH1", "HH2", "HH3")]
+
+dialogue_HC <- dialogue_data[, c("Feature", "HC1", "HC2", "HC3")]
+```
+
+```{r, include=TRUE}
+dialogue_HH
+dialogue_HC
+```
+\newpage
+# Human-Human Diaogue Data
+Count the mean value for each linguistic feature data:
+```{r, include=FALSE}
+# Compute the mean for each measurement
+dialogue_HH$Mean <- rowMeans(dialogue_HH[, 2:4])
+```
+```{r, include=TRUE}
+dialogue_HH
+```
+
