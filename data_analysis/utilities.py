@@ -1,10 +1,10 @@
 import re
 from lexicalrichness import LexicalRichness
 
-def strip_sentence(sentence):
+def strip_utterance(utterance):
     # Use regular expression to remove spaces and special characters
-    cleaned_sentence = re.sub(r'[^A-Za-z0-9]+', '', sentence)
-    return cleaned_sentence
+    cleaned_utterance = re.sub(r'[^A-Za-z0-9]+', '', utterance)
+    return cleaned_utterance
 
 def remove_contractions(line):
     # Initialize an empty list to store the modified lines

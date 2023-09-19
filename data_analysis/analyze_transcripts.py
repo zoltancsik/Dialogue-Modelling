@@ -1,5 +1,5 @@
 from cmath import exp
-from utilities import strip_sentence, remove_contractions, calc_lexical_richness
+from utilities import strip_utterance, remove_contractions, calc_lexical_richness
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from collections import Counter
@@ -23,11 +23,11 @@ class DataAnalysis:
 
     def count_words(self, lines):
         """
-        Use NLTK word_tokenize to tokenize the input sentence (lines)
+        Use NLTK word_tokenize to tokenize the input utterance (lines)
         Count the number of words in the provided line, excluding certain punctuations.
         
         Parameters:
-        - lines (str): The sentence to be analyzed.
+        - lines (str): The utterance to be analyzed.
 
         Returns:
         - int: The number of words found in the provided lines, excluding '.', ',', or '?'.
@@ -42,11 +42,11 @@ class DataAnalysis:
 
     def count_unique_words(self, lines):
         """
-        Use NLTK word_tokenize to tokenize the input sentence (lines)
+        Use NLTK word_tokenize to tokenize the input utterance (lines)
         Count the number of unique words in the provided line, excluding certain punctuations.
         
         Parameters:
-        - lines (str): The sentence to be analyzed.
+        - lines (str): The utterance to be analyzed.
 
         Returns:
         - int: The number of unique words found in the provided lines, excluding '.', ',', or '?'.
@@ -59,19 +59,19 @@ class DataAnalysis:
         unique_words = set(Counter(words_stripped))
         return len(unique_words)
 
-    def sentence_length(self, lines):
+    def utterance_length(self, lines):
         """
-        Count the length of each sentence in the input dialogue, excluding certain punctuations.
+        Count the length of each utterance in the input dialogue, excluding certain punctuations.
         
         Parameters:
-        - lines (str): The sentence to be analyzed.
+        - lines (str): The utterance to be analyzed.
 
         Returns:
-        - int: The The length of each sentence, excluding '.', ',', or '?'.
+        - int: The The length of each utterance, excluding '.', ',', or '?'.
         """
-        sentences = sent_tokenize(lines)
-        sentence_lentgth = [len(sentence) for sentence in sentences]
-        return sentence_lentgth[0]
+        utterances = sent_tokenize(lines)
+        utterance_lentgth = [len(utterance) for utterance in utterances]
+        return utterance_lentgth[0]
 
     def tokenize_line(self, lines):
         """
@@ -116,27 +116,24 @@ def calculate_lexical_diversity(lines, exp=False):
     plain_text = ""
     for line in remove_contractions(lines):
         words_per_line = dialogue.tokenize_line(line)
-        sentence = ' '.join(words_per_line)
-        plain_text += sentence + ' '
+        utterance = ' '.join(words_per_line)
+        plain_text += utterance + ' '
     
     score = calc_lexical_richness(plain_text)
-    if exp:
-        print(f"Root TTR Score: {score}")
-    else:
-        print(f"No explanation TTR {score}")
+    print(f"Root TTR Score: {score}")
 
     return score
 
 
-def calculate_avg_words_per_sentence(lines, exp=False):
+def calculate_avg_words_per_utterance(lines, exp=False):
     """
-    Calculate the average number of words per sentence for a list of tokenized lines.
-    Tokenization and number of words/sentence count is done by the DataAnalysis Class
+    Calculate the average number of words per utterance for a list of tokenized lines.
+    Tokenization and number of words/utterance count is done by the DataAnalysis Class
         
     Prints:
-    - The average word count per sentence.
-    - Formula explanation: (sum_of_avg_words_sentence/total_number_of_sentences).
-    - Exact number of total words and total sentences.
+    - The average word count per utterance.
+    - Formula explanation: (sum_of_avg_words_utterance/total_number_of_utterances).
+    - Exact number of total words and total utterances.
     
     Returns:
     - None
@@ -146,24 +143,24 @@ def calculate_avg_words_per_sentence(lines, exp=False):
         words_per_line = dialogue.count_words(line)
         total_words += words_per_line
 
-    # Calculating Average Word count/sentence.    
+    # Calculating Average Word count/utterance.    
     avg_word_count = total_words / len(lines) if lines else 0
     if exp:
-        print(f"Avg. words/Sentence: {round(avg_word_count,2)}.")
-        print("(sum_of_avg_words_sentence/total_number_of_sentences).")
+        print(f"Avg. words/utterance: {round(avg_word_count,2)}.")
+        print("(sum_of_avg_words_utterance/total_number_of_utterances).")
         print(f"In Exact Numbers: {total_words}/{len(lines)}.\n")
 
     return avg_word_count
 
 def calculate_unique_words_score(lines, exp=False):
     """
-    Calculate and print the average number of unique words per sentence for a list of tokenized lines.
-    Tokenization and number of unique words/sentence count is done by the DataAnalysis Class
+    Calculate and print the average number of unique words per utterance for a list of tokenized lines.
+    Tokenization and number of unique words/utterance count is done by the DataAnalysis Class
         
     Prints:
-    - The average word count per sentence.
-    - Formula explanation: (sum_of_unique_value/total_number_of_sentences).
-    - Exact number of total unique words and total sentences.
+    - The average word count per utterance.
+    - Formula explanation: (sum_of_unique_value/total_number_of_utterances).
+    - Exact number of total unique words and total utterances.
     
     Returns:
     - None
@@ -176,42 +173,42 @@ def calculate_unique_words_score(lines, exp=False):
     #Calculating average unique words    
     average_unique_words = total_unique_words / len(lines) if lines else 0
     if exp:
-        print(f"Avg. Unique words/Sentence: words per sentence: {round(average_unique_words,2)}.")
-        print("(sum_of_unique_value/total_number_of_sentences)")
+        print(f"Avg. Unique words/utterance: words per utterance: {round(average_unique_words,2)}.")
+        print("(sum_of_unique_value/total_number_of_utterances)")
         print(f"In Exact Numbers: {total_unique_words}/{len(lines)}.\n")
 
     return average_unique_words
 
-def calculate_sentence_length(lines, exp=False):
+def calculate_utterance_length(lines, exp=False):
     """
-    Calculate and print the average sentence length for a list of filtered lines (based on characters).
+    Calculate and print the average utterance length for a list of filtered lines (based on characters).
     
     Process the list tokenized lines to determine the length 
-    Stip each sentence from potential extra characters.
+    Stip each utterance from potential extra characters.
     Tokenize text with NLTK sent_tokenize.
-    Calculate the average sentence length.
+    Calculate the average utterance length.
         
     Prints:
-    - The average sentence length.
-    - Formula explanation: (sum_of_sentence_length/total_number_of_sentences).
-    - Exact number of total sentence length and total sentences.
+    - The average utterance length.
+    - Formula explanation: (sum_of_utterance_length/total_number_of_utterances).
+    - Exact number of total utterance length and total utterances.
     
     Returns:
     - None
     """
-    sum_of_sentence_length = 0
-    for sentence in lines:
-        sentence_length = dialogue.sentence_length(strip_sentence(sentence))
-        sum_of_sentence_length += sentence_length
+    sum_of_utterance_length = 0
+    for utterance in lines:
+        utterance_length = dialogue.utterance_length(strip_utterance(utterance))
+        sum_of_utterance_length += utterance_length
 
-    #Calculating the average sentence length
-    avg_sentence_length = sum_of_sentence_length/len(lines) if lines else 0
+    #Calculating the average utterance length
+    avg_utterance_length = sum_of_utterance_length/len(lines) if lines else 0
     if exp:
-        print(f"Avg. Sentence length: {round(avg_sentence_length,2)}.")
-        print("(sum_of_sentence_length/total_number_of_sentences)")
-        print(f"In Exact Numbers: {round(sum_of_sentence_length,2)}/{len(lines)}.\n")
+        print(f"Avg. Utterance length: {round(avg_utterance_length,2)}.")
+        print("(sum_of_utterance_length/total_number_of_utterances)")
+        print(f"In Exact Numbers: {round(sum_of_utterance_length,2)}/{len(lines)}.\n")
 
-    return avg_sentence_length
+    return avg_utterance_length
 
 if __name__ == '__main__':
     lines = process_data(standalone_mode=False)
@@ -220,13 +217,13 @@ if __name__ == '__main__':
 
     if exp_needed:
         # Execute calculations, with formulas being explained
-        calculate_sentence_length(filtered_lines, True)
-        calculate_avg_words_per_sentence(filtered_lines, True)
+        calculate_utterance_length(filtered_lines, True)
+        calculate_avg_words_per_utterance(filtered_lines, True)
         calculate_unique_words_score(filtered_lines, True)
         calculate_lexical_diversity(filtered_lines, True)
     else:
         # Execute calculations without formulas being explained
-        print(f"Sentence Length: {round(calculate_sentence_length(filtered_lines, False),3)}.")
-        print(f"Average Words/Sentence: {round(calculate_avg_words_per_sentence(filtered_lines, False),3)}.")
-        print(f"Average Unique Words/Sentence: {round(calculate_unique_words_score(filtered_lines, False),3)}.")
+        print(f"Utterance Length: {round(calculate_utterance_length(filtered_lines, False),3)}.")
+        print(f"Average Words/utterance: {round(calculate_avg_words_per_utterance(filtered_lines, False),3)}.")
+        print(f"Average Unique Words/utterance: {round(calculate_unique_words_score(filtered_lines, False),3)}.")
         print(f"Lexical Diversity: {round(calculate_lexical_diversity(filtered_lines, False),3)}")
