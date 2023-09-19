@@ -69,7 +69,7 @@ The test functions aim to validate the primary functions of the `DataAnalysis` c
 ```Console
 =============================================================================================== test session starts ===============================================================================================
 platform linux -- Python 3.10.12, pytest-7.4.1, pluggy-1.3.0
-rootdir: /home/zoltan/Desktop/DMT/Dialogmodellierung/data_analysis
+rootdir: xyz
 collected 7 items                                                                                                                                                                                                 
 
 test_calculations.py .......                                                                                                                                                                                [100%]
