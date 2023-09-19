@@ -46,3 +46,22 @@ This tool provides various utilities for analyzing text data, particularly dialo
 - NLTK: Used for tokenizing the text.
 - Click: Used for creating a command-line interface.
 - Other custom utilities as imported: `strip_utterance`, `remove_contractions`, `calc_lexical_richness`.
+
+## Example Output:
+Utterance Length: 33.372.
+Average Words/utterance: 8.721.
+Average Unique Words/utterance: 8.093.
+Root TTR Score: 9.617831033907356
+Lexical Diversity: 9.618
+
+
+# Testing
+
+## Overview:
+The test functions aim to validate the primary functions of the `DataAnalysis` class and associated utilities.
+
+
+## Dependencies:
+- **analyze_transcripts**: The primary module containing the `DataAnalysis` class.
+- **utilities**: Contains helper functions for text analysis, such as `strip_utterance`, `remove_contractions`, and `calc_lexical_richness`.
+- **lexicalrichness**: A library for computing lexical richness scores.
