@@ -17,7 +17,7 @@ This skill provides an interactive conversation flow for the Furhat robot center
 # Dialogue Data Analysis Tool
 
 ## Overview
-This tool provides various utilities for analyzing text data, particularly dialogue lines. It leverages the NLTK library for text processing and tokenization. Main features include analyzing lexical richness, counting words, identifying unique words, and determining utterance lengths.
+This tool is used to analyze the transcribed dialogue data. Main features include analyzing lexical richness, counting words, identifying unique words, and determining utterance lengths.
 
 ## Modules and Classes:
 - **DataAnalysis**: Contains methods to filter and analyze lines of text.
