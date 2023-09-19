@@ -44,7 +44,6 @@ This tool is used to analyze the transcribed dialogue data. Main features includ
 ## Dependencies:
 - NLTK: Used for tokenizing the text.
 - Click: Used for creating a command-line interface.
-- Other custom utilities as imported: `strip_utterance`, `remove_contractions`, `calc_lexical_richness`.
 
 ## Example Output:
 
@@ -58,14 +57,25 @@ Lexical Diversity: 9.618
 # Testing
 
 ## Overview:
+To validate the formulas used in the data_analysis script, a test unit named test_calulations.py was written
 The test functions aim to validate the primary functions of the `DataAnalysis` class and associated utilities.
-
 
 ## Dependencies:
 - **analyze_transcripts**: The primary module containing the `DataAnalysis` class.
 - **utilities**: Contains helper functions for text analysis, such as `strip_utterance`, `remove_contractions`, and `calc_lexical_richness`.
 - **lexicalrichness**: A library for computing lexical richness scores.
 
+## Output:
+```Console
+=============================================================================================== test session starts ===============================================================================================
+platform linux -- Python 3.10.12, pytest-7.4.1, pluggy-1.3.0
+rootdir: /home/zoltan/Desktop/DMT/Dialogmodellierung/data_analysis
+collected 7 items                                                                                                                                                                                                 
+
+test_calculations.py .......                                                                                                                                                                                [100%]
+
+================================================================================================ 7 passed in 1.13s ================================================================================================
+```
 # Dialogue Data Evaluation
 
 ## Overview
