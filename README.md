@@ -1,7 +1,7 @@
 # FurHat Skill
 
 ## Overview
-This skill provides an interactive conversation flow for the Furhat robot centered around cinema experiences, both past and recent. It guides the user through questions about their latest cinema visits, their opinions on movies, and their reflections on the general state of cinemas today.
+This skill provides an interactive conversation flow for the Furhat robot centered around cinema experiences, both past and recent. It guides the user through questions about their latest cinema visits, while serving the purpose of collecting dialogue data for future analyses.
 
 ## Example States:
 
