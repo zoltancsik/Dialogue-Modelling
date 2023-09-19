@@ -48,13 +48,14 @@ This tool provides various utilities for analyzing text data, particularly dialo
 - Other custom utilities as imported: `strip_utterance`, `remove_contractions`, `calc_lexical_richness`.
 
 ## Example Output:
+
+```Console
 Utterance Length: 33.372.
 Average Words/utterance: 8.721.
 Average Unique Words/utterance: 8.093.
 Root TTR Score: 9.617831033907356
 Lexical Diversity: 9.618
-
-
+```
 # Testing
 
 ## Overview:
