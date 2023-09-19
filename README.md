@@ -1,5 +1,4 @@
 # FurHat Skill
-## Cinema Conversation Script for Furhat
 
 ## Overview
 This skill provides an interactive conversation flow for the Furhat robot centered around cinema experiences, both past and recent. It guides the user through questions about their latest cinema visits, their opinions on movies, and their reflections on the general state of cinemas today.
@@ -66,3 +65,29 @@ The test functions aim to validate the primary functions of the `DataAnalysis` c
 - **analyze_transcripts**: The primary module containing the `DataAnalysis` class.
 - **utilities**: Contains helper functions for text analysis, such as `strip_utterance`, `remove_contractions`, and `calc_lexical_richness`.
 - **lexicalrichness**: A library for computing lexical richness scores.
+
+# Dialogue Data Evaluation
+
+## Overview
+
+The "Dialogue Data Evaluation" R Markdown aims to evaluate linguistic dialogue features extracted from the analysed data. 
+
+## Key Features
+
+- **Data Preparation**: Creation of a data frame that encapsulates linguistic dialogue features.
+  
+- **Divided Dialogues**: Splits the initial dataset into separate Human-Human and Human-Computer datasets for more focused analysis.
+
+- **Mean Value Calculation**: Computes the mean value for each linguistic feature across multiple dialogues, both for Human-Human and Human-Computer datasets.
+
+- **Combined Mean Values**: Aggregates the mean values from both datasets into a summary data frame for further analysis.
+
+- **Visual Comparison**: A graphical representation comparing the HH and HC data using a bar graph.
+
+- **Statistical Relevance**: Application of the Two-sample independent t-test to determine if there's any significant difference between Human-Human and Human-Computer dialogue metrics.
+
+## Requirements
+
+1. Ensure you have the required R libraries installed:
+   - knitr
+   - ggplot2
